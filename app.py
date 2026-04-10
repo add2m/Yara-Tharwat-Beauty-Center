@@ -1,8 +1,16 @@
 import streamlit as st
+import os
 
 st.set_page_config(page_title="بوابة خدمة العملاء", layout="centered")
 
-st.title("❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️")
+image_path = "logo.png" 
+
+if os.path.exists(image_path):
+    st.sidebar.image(image_path, use_container_width=True)
+
+st.sidebar.markdown("---")
+
+st.title("أهلاً بك في خدمتنا")
 
 if 'confirmed' not in st.session_state:
     st.session_state.confirmed = False
