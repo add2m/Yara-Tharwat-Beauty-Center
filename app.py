@@ -1,8 +1,21 @@
 import streamlit as st
+import os
 
 st.set_page_config(page_title="بوابة خدمة العملاء", layout="centered")
 
-st.title("❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️")
+# البحث عن الصورة بأكثر من صيغة
+image_found = False
+for ext in ["png", "jpg", "jpeg"]:
+    path = f"logo.{ext}"
+    if os.path.exists(path):
+        st.image(path, width=300)
+        image_found = True
+        break
+
+if not image_found:
+    st.info("ارفع الصورة على GitHub وسميها logo.png أو logo.jpg")
+
+st.title("أهلاً بك في خدمتنا")
 
 if 'confirmed' not in st.session_state:
     st.session_state.confirmed = False
