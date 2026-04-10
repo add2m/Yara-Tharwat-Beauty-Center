@@ -35,10 +35,16 @@ with st.form("booking_form"):
     phone = st.text_input("رقم الهاتف")
     email = st.text_input("البريد الإلكتروني")
     
-    # الزرار اللي كان فيه المشكلة
+    # الزرار الأساسي للفورم
     submit = st.form_submit_button("إرسال البيانات")
     
     if submit:
         if name and address and phone:
-            # تجهيز رسالة الواتساب
-            msg = f"حجز جديد من الموقع:\nالاسم: {name}\nالسن
+            # تجهيز رسالة الواتساب وتصحيح الخطأ اللي ظهر في الصورة الرابعة
+            msg = f"حجز جديد من الموقع:\nالاسم: {name}\nالسن: {age}\nالعنوان: {address}\nالهاتف: {phone}"
+            msg_encoded = urllib.parse.quote(msg)
+            link = f"https://wa.me/{whatsapp_number}?text={msg_encoded}"
+            
+            st.success("تم تجهيز بياناتك بنجاح!")
+            # زرار الواتساب
+            st.markdown(f'<a href="{link}" target="_blank" style="background-color: #25D366; color: white; padding: 15px 25px; text-decoration: none; border-radius: 1
