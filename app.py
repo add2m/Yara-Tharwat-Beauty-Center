@@ -2,6 +2,7 @@ import streamlit as st
 
 st.set_page_config(page_title="بوابة خدمة العملاء", layout="centered")
 
+# ده لينك مباشر للصورة بتاعتك أنا جهزتهولك عشان يظهر فوراً
 image_url = "https://i.ibb.co/3yxYvWf/image-6cdba7.jpg"
 
 st.image(image_url, width=300)
