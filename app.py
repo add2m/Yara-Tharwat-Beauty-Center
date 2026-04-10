@@ -2,20 +2,20 @@ import streamlit as st
 
 st.set_page_config(page_title="بوابة خدمة العملاء", layout="centered")
 
-# رابط اللوجو اللي شغال معاك تمام
+# رابط اللوجو الذهبي بتاعك
 logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 
-# عرض اللوجو في نص الصفحة فوق
+# عرض اللوجو في منتصف الصفحة
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image(logo_url, use_container_width=True)
 
 st.markdown("<h1 style='text-align: center;'>أهلاً بك في خدمتنا</h1>", unsafe_allow_html=True)
 
-# --- إضافة البيانات في الشريط الجانبي (Sidebar) عشان تظهر أكيد ---
+# إضافة البيانات في الشريط الجانبي (Sidebar)
 with st.sidebar:
-    st.image(logo_url, width=100) # لوجو صغير في الجنب
-    st.title("بيانات التواصل")
+    st.image(logo_url, width=150)
+    st.title("تواصل معنا")
     st.markdown("---")
     st.markdown("### 📞 الأرقام:")
     st.write("01055901090")
@@ -24,6 +24,7 @@ with st.sidebar:
     st.markdown("### 📍 العنوان:")
     st.write("منيه النصر - شارع البحر - مقابل ستار مول - اعلي يونيكورن - الدور الخامس")
 
+# نظام إدخال البيانات
 if 'confirmed' not in st.session_state:
     st.session_state.confirmed = False
 
@@ -74,4 +75,5 @@ else:
         st.session_state.confirmed = False
         st.rerun()
 
-st.markdown("<br><br><p style='text-align: center; color: gray;'>
+# التذييل (Footer)
+st.markdown("<br><hr><p style='text-align: center; color: gray;'>❤️ شكراً لتعاملك معنا ❤️</p>", unsafe_allow_html=True)
