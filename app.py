@@ -1,67 +1,64 @@
 import streamlit as st
 
-st.set_page_config(page_title="Customer Portal", layout="centered")
+st.set_page_config(page_title="بوابة خدمة العملاء", layout="centered")
 
-st.title("Welcome to Our Service")
+st.title("أهلاً بك في خدمتنا")
 
 if 'confirmed' not in st.session_state:
     st.session_state.confirmed = False
 
 if not st.session_state.confirmed:
-    st.header("Please enter your information")
+    st.header("برجاء إدخال البيانات التالية")
     
     with st.form("user_form"):
-        name = st.text_input("Full Name")
-        age = st.number_input("Age", min_value=1, max_value=100)
-        address = st.text_input("Address")
-        phone = st.text_input("Phone Number")
-        email = st.text_input("Email Address")
+        name = st.text_input("الاسم بالكامل")
+        age = st.number_input("السن", min_value=1, max_value=100)
+        address = st.text_input("العنوان")
+        phone = st.text_input("رقم الهاتف")
+        email = st.text_input("البريد الإلكتروني")
         
-        submit = st.form_submit_button("Submit")
+        submit = st.form_submit_button("إرسال")
         
         if submit:
             if name and address and phone and email:
                 st.session_state.user_data = {
-                    "Name": name, "Age": age, "Address": address, 
-                    "Phone": phone, "Email": email
+                    "الاسم": name, "السن": age, "العنوان": address, 
+                    "رقم الهاتف": phone, "البريد الإلكتروني": email
                 }
                 st.session_state.review = True
             else:
-                st.error("Please fill in all fields.")
+                st.error("برجاء ملء جميع الخانات.")
 
     if 'review' in st.session_state and st.session_state.review:
         st.write("---")
-        st.subheader("Review Your Details")
+        st.subheader("مراجعة بياناتك")
         for key, value in st.session_state.user_data.items():
             st.write(f"**{key}:** {value}")
         
         col1, col2 = st.columns(2)
-        if col1.button("Yes, I'm sure"):
+        if col1.button("أيوه، البيانات صحيحة"):
             st.session_state.confirmed = True
             st.rerun()
-        if col2.button("No, let me edit"):
+        if col2.button("لا، أريد التعديل"):
             st.session_state.review = False
             st.rerun()
 
 else:
-    st.success("Information saved successfully!")
-    st.subheader("How can we help you today?")
+    st.success("تم حفظ البيانات بنجاح!")
+    st.subheader("إزاي نقدر نساعدك النهاردة؟")
     
-    choice = st.radio("Select an option:", ["Buy", "Contact Customer Service"])
+    choice = st.radio("اختر من الخيارات التالية:", ["شراء", "تواصل مع خدمة العملاء"])
     
-    if st.button("Confirm Selection"):
-        if choice == "Buy":
-            st.info("Thank you! We will contact you within moments.")
+    if st.button("تأكيد الاختيار"):
+        if choice == "شراء":
+            st.info("شكراً لك! سيتم التواصل معك خلال لحظات.")
             st.balloons() 
         else:
-            st.info("Our team will contact you within 24 hours.")
+            st.info("سيتم التواصل معك خلال 24 ساعة.")
 
-    if st.button("Start Over"):
+    if st.button("البدء من جديد"):
         st.session_state.confirmed = False
         st.rerun()
 
 st.write("\n" * 3) 
-st.markdown("<h3 style='text-align: center;'>❤️Thank you for your business❤️</h3>", unsafe_allow_html=True)
-
-
- 
+st.markdown("<h3 style='text-align: center;'>❤️شكراً لتعاملك معنا❤️</h3>", unsafe_allow_html=True)
