@@ -2,13 +2,15 @@ import streamlit as st
 
 st.set_page_config(page_title="بوابة خدمة العملاء", layout="centered")
 
-# اللينك ده بيقرأ الصورة مباشرة من حسابك على GitHub
-# تأكد إن اسم حسابك add2m واسم المستودع my-first-app والصورة logo.jpg
-image_url = "https://raw.githubusercontent.com/add2m/my-first-app/master/logo.jpg"
+# الرابط المباشر اللي إنت جبته من PostImages
+logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 
-st.image(image_url, width=300)
+# عرض الصورة في المنتصف
+col1, col2, col3 = st.columns([1, 2, 1])
+with col2:
+    st.image(logo_url, use_container_width=True)
 
-st.title("أهلاً بك في خدمتنا")
+st.markdown("<h1 style='text-align: center;'>أهلاً بك في خدمتنا</h1>", unsafe_allow_html=True)
 
 if 'confirmed' not in st.session_state:
     st.session_state.confirmed = False
@@ -55,16 +57,4 @@ else:
     
     choice = st.radio("اختر من الخيارات التالية:", ["شراء", "تواصل مع خدمة العملاء"])
     
-    if st.button("تأكيد الاختيار"):
-        if choice == "شراء":
-            st.info("شكراً لك! سيتم التواصل معك خلال لحظات.")
-            st.balloons() 
-        else:
-            st.info("سيتم التواصل معك خلال 24 ساعة.")
-
-    if st.button("البدء من جديد"):
-        st.session_state.confirmed = False
-        st.rerun()
-
-st.write("\n" * 3) 
-st.markdown("<h3 style='text-align: center;'>❤️شكراً لتعاملك معنا❤️</h3>", unsafe_allow_html=True)
+    if st.button("تأ
