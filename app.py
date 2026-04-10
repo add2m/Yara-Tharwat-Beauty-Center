@@ -6,9 +6,9 @@ st.set_page_config(page_title="بوابة خدمة العملاء", layout="cent
 image_path = "logo.png" 
 
 if os.path.exists(image_path):
-    st.sidebar.image(image_path, use_container_width=True)
-
-st.sidebar.markdown("---")
+    st.image(image_path, width=300)
+else:
+    st.info("ارفع الصورة على GitHub وسميها logo.png عشان تظهر هنا")
 
 st.title("أهلاً بك في خدمتنا")
 
