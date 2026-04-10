@@ -8,7 +8,7 @@ st.set_page_config(page_title="بيوتي سنتر يارا ثروت", layout="c
 logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 whatsapp_number = "201055901090"
 
-# عرض اللوجو
+# عرض اللوجو في منتصف الصفحة
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st.image(logo_url, use_container_width=True)
@@ -24,9 +24,10 @@ with st.sidebar:
     st.write("📞 01055907095")
     st.write("📍 منيه النصر - شارع البحر")
 
-# فورم إدخال البيانات - دي اللي كانت بتختفي
-st.header("برجاء إدخال البيانات للحجز")
+# عنوان الفورم
+st.markdown("<h2 style='text-align: right;'>برجاء إدخال البيانات للحجز</h2>", unsafe_allow_html=True)
 
+# فورم إدخال البيانات
 with st.form("booking_form"):
     name = st.text_input("الاسم بالكامل")
     age = st.text_input("السن")
@@ -34,4 +35,10 @@ with st.form("booking_form"):
     phone = st.text_input("رقم الهاتف")
     email = st.text_input("البريد الإلكتروني")
     
-    submit = st.form_
+    # الزرار اللي كان فيه المشكلة
+    submit = st.form_submit_button("إرسال البيانات")
+    
+    if submit:
+        if name and address and phone:
+            # تجهيز رسالة الواتساب
+            msg = f"حجز جديد من الموقع:\nالاسم: {name}\nالسن
