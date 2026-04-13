@@ -84,9 +84,9 @@ elif current_page == "gallery":
     if st.button("العودة للرئيسية"): st.query_params.clear(); st.rerun()
 
 else:
-    # الصفحة الرئيسية - هنا التعديل بتاع رفع النص لفوق
+    # الصفحة الرئيسية - تعديل المسافة لتكون قصاد السهمين تماماً
     st.markdown('''
-        <div style="text-align: left; margin-top: -55px; padding-left: 10px;">
+        <div style="text-align: left; margin-top: -35px; padding-left: 10px; margin-bottom: 5px;">
             <p style="color: #D4AF37; font-size: 14px; font-weight: bold;">
                 👈 انقري على السهم هنا للمزيد
             </p>
