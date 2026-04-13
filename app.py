@@ -26,14 +26,14 @@ with st.sidebar:
 # أ. الصفحة الرئيسية
 if st.session_state.page == 'home':
     st.image(logo_url, use_container_width=True)
-    st.markdown("<h2 style='text-align: center; color: #D4AF37;'>بيوتي سنتر يارا ثروت</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center; color: #D4AF37;'>❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️</h2>", unsafe_allow_html=True)
     
     # أزرار موبايل كبيرة
     st.button("📅 للحجز", use_container_width=True, on_click=go_to, args=('booking',))
     st.button("💰 قائمة الأسعار", use_container_width=True, on_click=go_to, args=('prices',))
     st.button("✨ صور لشغلنا", use_container_width=True, on_click=go_to, args=('gallery',))
 
-# ب. صفحة الحجز (تم إضافة السن والعنوان)
+# ب. صفحة الحجز (السن والعنوان مضافين)
 elif st.session_state.page == 'booking':
     st.markdown("### 📅 بيانات الحجز")
     with st.form("booking_form"):
@@ -45,7 +45,6 @@ elif st.session_state.page == 'booking':
         
         if submit:
             if u_name and u_phone:
-                # تجهيز الرسالة لواتساب
                 msg_text = f"حجز جديد:\nالاسم: {u_name}\nالسن: {u_age}\nالعنوان: {u_address}\nالهاتف: {u_phone}"
                 msg = urllib.parse.quote(msg_text)
                 st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" style="background-color: #25D366; color: white; padding: 15px; text-decoration: none; border-radius: 10px; display: block; text-align: center;">تأكيد عبر واتساب</a>', unsafe_allow_html=True)
@@ -64,9 +63,4 @@ elif st.session_state.page == 'prices':
 # د. صفحة المعرض
 elif st.session_state.page == 'gallery':
     st.markdown("### ✨ معرض الأعمال")
-    st.success("قريباً سيتم عرض الصور هنا")
-    st.button("🏠 العودة للرئيسية", use_container_width=True, on_click=go_to, args=('home',))
-
-# تذييل الصفحة
-st.write("---")
-st.caption("شكرا لاختياركم بيوتي سنتر يارا ثروت💕")
+    st.success("قريباً سيتم عرض الصور هنا
