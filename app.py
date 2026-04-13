@@ -75,7 +75,7 @@ elif current_page == "reviews":
 
     # --- لوحة التحكم المتطورة لحذف تعليق واحد ---
     st.write("---")
-    with st.expander("🔐 إدارة التعليقات (حذف تعليق محدد)"):
+    with st.expander("🔐 إدارة التعليقات "):
         pwd = st.text_input("أدخل كلمة المرور", type="password")
         if pwd == ADMIN_PASSWORD:
             st.info("اختر التعليق الذي تريد حذفه:")
