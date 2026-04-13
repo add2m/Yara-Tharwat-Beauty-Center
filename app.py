@@ -12,8 +12,8 @@ def get_business_status():
     now = datetime.utcnow() + timedelta(hours=3)
     current_hour = now.hour
     
-    # المواعيد من 11 صباحاً حتى 10 مساءً
-    start_hour = 11
+    # المواعيد من 1 ظهر حتى 10 مساءً
+    start_hour = 13
     end_hour = 22
     
     if start_hour <= current_hour < end_hour:
