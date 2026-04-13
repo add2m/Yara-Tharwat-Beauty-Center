@@ -16,16 +16,26 @@ def handle_reviews(action="read", new_review=None):
             f.write(f"\n{new_review}")
     
     elif action == "delete_all":
-        with open(file_path, "w", encoding="utf-8") as f: f.write("") # يمسح المحتوى
+        with open(file_path, "w", encoding="utf-8") as f: f.write("") 
             
     with open(file_path, "r", encoding="utf-8") as f:
         return f.readlines()
 
-# 2. البيانات الأساسية
+# 2. البيانات والروابط
 logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 whatsapp_num = "201055901090"
 phone_1 = "01055901090"
-ADMIN_PASSWORD = "1234"  # <--- غير الباسوورد بتاعك من هنا
+phone_2 = "01055907095"
+ADMIN_PASSWORD = "9811"  # تم تغيير الباسورد لـ 9811
+
+# روابط الفيديوهات الخمسة
+video_ids = [
+    "1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL",
+    "1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi4hzi",
+    "1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0",
+    "1wlMl0Mi7COStjKh1d8B9JxWqj7Cf-fD1",
+    "1mGeV2CQrYyJCwZkSGBrB2rhMqta8BlOU"
+]
 
 # 3. إدارة التنقل
 query_params = st.query_params
@@ -46,7 +56,6 @@ if current_page == "booking":
 
 elif current_page == "reviews":
     st.markdown("### ✨ رأي عملائنا")
-    
     with st.expander("اضف رأيك هنا"):
         with st.form("review_form"):
             r_name = st.text_input("الاسم")
@@ -57,16 +66,14 @@ elif current_page == "reviews":
                     st.success("تم النشر بنجاح!")
                     st.rerun()
 
-    # عرض الآراء
     reviews = handle_reviews()
     for rev in reversed(reviews):
         if "|" in rev:
             text, name = rev.strip().split("|")
             st.markdown(f'<div style="padding:15px; border:1px solid rgba(49,51,63,0.2); border-radius:10px; margin-bottom:10px;">"{text}"<br><small style="color:#D4AF37;">- {name}</small></div>', unsafe_allow_html=True)
 
-    # --- لوحة التحكم السرية للمسح ---
     st.write("---")
-    with st.expander("إدارة التعليقات (لصاحب الموقع فقط)"):
+    with st.expander("إدارة التعليقات"):
         pwd = st.text_input("أدخل كلمة المرور للمسح", type="password")
         if pwd == ADMIN_PASSWORD:
             if st.button("🗑️ مسح جميع الآراء"):
@@ -76,12 +83,11 @@ elif current_page == "reviews":
 
 elif current_page == "gallery":
     st.markdown("### ✨ فيديوهات من شغلنا")
-    for vid in ["1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL", "1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi4hzi", "1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0"]:
+    for vid in video_ids:
         st.components.v1.iframe(f"https://drive.google.com/file/d/{vid}/preview", height=480)
         st.write("---")
 
 else:
-    # الرئيسية
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️</h2>", unsafe_allow_html=True)
     st.markdown('<a href="./?p=booking" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:12px; border:1px solid rgba(49,51,63,0.2); border-radius:8px; text-align:center; margin-bottom:12px;">📅 للحجز</div></a>', unsafe_allow_html=True)
@@ -92,6 +98,6 @@ else:
 with st.sidebar:
     st.image(logo_url, width=150)
     st.markdown(f'<a href="tel:{phone_1}" style="text-decoration:none;"><div style="background-color:#007bff; color:white; padding:10px; border-radius:8px; text-align:center; margin-bottom:10px;">📞 اتصل بنا الآن</div></a>', unsafe_allow_html=True)
-    st.markdown('<div style="padding:10px; border:1px solid rgba(49,51,63,0.1); border-radius:5px;">📱 01055901090<br>📱 01055907095</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="padding:10px; border:1px solid rgba(49,51,63,0.1); border-radius:5px;">📱 {phone_1}<br>📱 {phone_2}</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### 📍 العنوان\nمنيه النصر - شارع البحر\nأعلى يونيكورن الدور الخامس")
