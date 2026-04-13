@@ -19,7 +19,7 @@ def go_to(page_name):
 with st.sidebar:
     st.image(logo_url, width=150)
     st.markdown("### 📞 للتواصل\n01055901090\n\n01055907095")
-    st.markdown("### 📍 العنوان\nمنيه النصر - الدقهلية")
+    st.markdown("### 📍 العنوان\nالدقهليه - مركز منيه النصر-\nشارع البحر - مقابل استار مول - \n اعلى يونيكورن الدور الخامس")
 
 # --- محتوى الصفحات ---
 
@@ -29,7 +29,7 @@ if st.session_state.page == 'home':
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>بيوتي سنتر يارا ثروت</h2>", unsafe_allow_html=True)
     
     # أزرار موبايل كبيرة
-    st.button("📅 حجز موعد", use_container_width=True, on_click=go_to, args=('booking',))
+    st.button("📅 للحجز", use_container_width=True, on_click=go_to, args=('booking',))
     st.button("💰 قائمة الأسعار", use_container_width=True, on_click=go_to, args=('prices',))
     st.button("✨ صور لشغلنا", use_container_width=True, on_click=go_to, args=('gallery',))
 
