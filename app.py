@@ -84,10 +84,10 @@ elif current_page == "gallery":
     if st.button("العودة للرئيسية"): st.query_params.clear(); st.rerun()
 
 else:
-    # الصفحة الرئيسية - تعديل المسافة لتكون قصاد السهمين تماماً
+    # الصفحة الرئيسية - تثبيت الكلمة قصاد السهمين بالظبط
     st.markdown('''
-        <div style="text-align: left; margin-top: -35px; padding-left: 10px; margin-bottom: 5px;">
-            <p style="color: #D4AF37; font-size: 14px; font-weight: bold;">
+        <div style="position: absolute; top: -50px; left: 10px; z-index: 1000;">
+            <p style="color: #D4AF37; font-size: 14px; font-weight: bold; background-color: rgba(14, 17, 23, 0.8); padding: 5px; border-radius: 5px;">
                 👈 انقري على السهم هنا للمزيد
             </p>
         </div>
