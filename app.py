@@ -8,14 +8,14 @@ st.set_page_config(page_title="❤️اهلا بكم في بيوتي سنتر ي
 logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 whatsapp_num = "201055901090"
 
-# 3. قراءة "علامة الصفحة" من الرابط (Query Params)
+# 3. قراءة التوجه من الرابط (Query Params)
 query_params = st.query_params
 current_page = query_params.get("p", "home")
 
 # 4. محتوى الصفحات بناءً على الاختيار
 # ------------------------------
 
-# أ. صفحة الحجز (التي تفتح في تاب جديد)
+# أ. صفحة الحجز
 if current_page == "booking":
     st.markdown("### 📅 بيانات الحجز")
     with st.form("booking_form"):
@@ -38,15 +38,15 @@ elif current_page == "gallery":
     st.markdown("### ✨ معرض الأعمال")
     st.success("قريباً سيتم عرض الصور هنا")
 
-# د. الصفحة الرئيسية (الشكل القديم بدون اللون الأصفر)
+# د. الصفحة الرئيسية (أزرار شفافة تماماً)
 else:
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️</h2>", unsafe_allow_html=True)
     
-    # روابط بسيطة تفتح في صفحات جديدة وتظهر كأزرار عادية
-    st.markdown('<a href="./?p=booking" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">📅 للحجز</div></a>', unsafe_allow_html=True)
-    st.markdown('<a href="./?p=prices" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">💰 قائمة الأسعار</div></a>', unsafe_allow_html=True)
-    st.markdown('<a href="./?p=gallery" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">✨ صور لشغلنا</div></a>', unsafe_allow_html=True)
+    # الروابط هنا بقت شفافة وبدون أي ألوان خلفية (فقط نص وإطار خفيف جداً زي الأصلي)
+    st.markdown('<a href="./?p=booking" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 12px; border: 1px solid rgba(49, 51, 63, 0.2); border-radius: 8px; text-align: center; margin-bottom: 12px; font-size: 16px;">📅 للحجز</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="./?p=prices" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 12px; border: 1px solid rgba(49, 51, 63, 0.2); border-radius: 8px; text-align: center; margin-bottom: 12px; font-size: 16px;">💰 قائمة الأسعار</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="./?p=gallery" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 12px; border: 1px solid rgba(49, 51, 63, 0.2); border-radius: 8px; text-align: center; margin-bottom: 12px; font-size: 16px;">✨ صور لشغلنا</div></a>', unsafe_allow_html=True)
 
 # تذييل ثابت لكل الصفحات
 st.write("---")
