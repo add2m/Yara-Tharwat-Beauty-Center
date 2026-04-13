@@ -30,7 +30,7 @@ elif current_page == "prices":
 
 # ج. صفحة المعرض
 elif current_page == "gallery":
-    st.markdown("### ✨ .صور لشغلنا")
+    st.markdown("### ✨ صور لشغلنا")
     st.success("قريباً سيتم عرض الصور هنا")
 
 # د. الصفحة الرئيسية (الشكل القديم بدون اللون الأصفر)
