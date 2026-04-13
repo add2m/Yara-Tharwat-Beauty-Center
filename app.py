@@ -6,6 +6,32 @@ from datetime import datetime, timedelta
 # 1. إعدادات الصفحة
 st.set_page_config(page_title="✨اهلا بكم في بيوتي سنتر يارا ثروت✨", layout="centered")
 
+# --- التنسيق الجمالي (إضافة الفريم الأبيض الواضح) ---
+st.markdown("""
+    <style>
+    /* تنسيق الزراير في الصفحة الرئيسية ليكون لها فريم أبيض واضح */
+    .stMarkdown div a div {
+        border: 2px solid #FFFFFF !important; /* فريم أبيض واضح جداً */
+        border-radius: 12px !important;      /* حواف دائرية متناسقة */
+        background-color: rgba(255, 255, 255, 0.05) !important; /* خلفية شفافة بسيطة */
+        padding: 15px !important;            /* مسافة داخلية للكلام */
+        margin-bottom: 15px !important;      /* مسافة بين كل زرار والتاني */
+        transition: 0.3s;                    /* نعومة عند مرور الماوس */
+    }
+    
+    /* تغيير لون الفريم عند التمرير بالماوس ليعطي لمسة جمالية */
+    .stMarkdown div a div:hover {
+        border-color: #D4AF37 !important;    /* يتحول للذهبي عند اللمس */
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    /* الحفاظ على لون أيقونات القائمة الجانبية */
+    [data-testid="stSidebarCollapseIcon"] svg {
+        fill: #D4AF37 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # --- وظيفة حساب حالة العمل (توقيت مصر UTC+3) ---
 def get_business_status():
     # توقيت مصر حالياً هو UTC+3
@@ -107,8 +133,9 @@ else:
     # الرئيسية
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>✨اهلا بكم في بيوتي سنتر يارا ثروت✨</h2>", unsafe_allow_html=True)
+    # القائمة الرئيسية - ستظهر بالفريم الأبيض بفضل كود الـ CSS في الأعلى
     for title, p in [("📅 للحجز", "booking"), ("💰 قائمة الأسعار", "prices"), ("⭐ رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
-        st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:12px; border:1px solid rgba(49, 51, 63, 0.2); border-radius:8px; text-align:center; margin-bottom:12px;">{title}</div></a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div>{title}</div></a>', unsafe_allow_html=True)
 
 # 5. Sidebar
 with st.sidebar:
