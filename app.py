@@ -1,15 +1,36 @@
 import streamlit as st
 import urllib.parse
+import re
 
-
+# 1. إعدادات الصفحة
 st.set_page_config(page_title="❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️", layout="centered")
 
+# 2. الروابط الأساسية
 logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 whatsapp_num = "201055901090"
 
+# فيديوهات درايف اللي بعتها
+video_links = [
+    "https://drive.google.com/file/d/1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL/view?usp=sharing",
+    "https://drive.google.com/file/d/1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi4hzi/view?usp=sharing",
+    "https://drive.google.com/file/d/1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0/view?usp=sharing",
+    "https://drive.google.com/file/d/1wlMl0Mi7COStjKh1d8B9JxWqj7Cf-fD1/view?usp=sharing",
+    "https://drive.google.com/file/d/1mGeV2CQrYyJCwZkSGBrB2rhMqta8BlOU/view?usp=sharing"
+]
+
+# وظيفة لتحويل رابط درايف لرابط تشغيل مباشر
+def get_direct_link(url):
+    file_id = re.search(r'/d/([^/]+)', url)
+    if file_id:
+        return f"https://drive.google.com/uc?export=download&id={file_id.group(1)}"
+    return url
+
+# 3. قراءة التوجه من الرابط (Query Params)
 query_params = st.query_params
 current_page = query_params.get("p", "home")
 
+# 4. محتوى الصفحات
+# ------------------------------
 
 if current_page == "booking":
     st.markdown("### 📅 بيانات الحجز")
@@ -23,30 +44,30 @@ if current_page == "booking":
             msg = urllib.parse.quote(f"حجز جديد:\nالاسم: {u_name}\nالسن: {u_age}\nالعنوان: {u_address}\nالهاتف: {u_phone}")
             st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" style="background-color: #25D366; color: white; padding: 15px; text-decoration: none; border-radius: 10px; display: block; text-align: center;">تأكيد عبر واتساب</a>', unsafe_allow_html=True)
 
-# ب. صفحة الأسعار
 elif current_page == "prices":
     st.markdown("### 💰 قائمة الأسعار")
     st.info("قريباً سيتم عرض الأسعار هنا")
 
-# ج. صفحة المعرض
 elif current_page == "gallery":
-    st.markdown("### ✨ صور لشغلنا")
-    st.success("قريباً سيتم عرض الصور هنا")
+    st.markdown("### ✨ فيديوهات من شغلنا")
+    for link in video_links:
+        direct_link = get_direct_link(link)
+        st.video(direct_link)
+        st.write("---")
 
-# د. الصفحة الرئيسية (الشكل القديم بدون اللون الأصفر)
 else:
+    # الصفحة الرئيسية (أزرار شفافة)
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️</h2>", unsafe_allow_html=True)
     
-    # روابط بسيطة تفتح في صفحات جديدة وتظهر كأزرار عادية
-    st.markdown('<a href="./?p=booking" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">📅 للحجز</div></a>', unsafe_allow_html=True)
-    st.markdown('<a href="./?p=prices" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">💰 قائمة الأسعار</div></a>', unsafe_allow_html=True)
-    st.markdown('<a href="./?p=gallery" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">✨ صور لشغلنا</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="./?p=booking" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 12px; border: 1px solid rgba(49, 51, 63, 0.2); border-radius: 8px; text-align: center; margin-bottom: 12px; font-size: 16px;">📅 للحجز</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="./?p=prices" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 12px; border: 1px solid rgba(49, 51, 63, 0.2); border-radius: 8px; text-align: center; margin-bottom: 12px; font-size: 16px;">💰 قائمة الأسعار</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="./?p=gallery" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 12px; border: 1px solid rgba(49, 51, 63, 0.2); border-radius: 8px; text-align: center; margin-bottom: 12px; font-size: 16px;">✨ صور لشغلنا</div></a>', unsafe_allow_html=True)
 
-# تذييل ثابت لكل الصفحات
+# تذييل ثابت
 st.write("---")
 with st.sidebar:
     st.image(logo_url, width=150)
     st.markdown("### 📞 للتواصل\n01055901090\n\n01055907095")
-    st.markdown("### 📍 العنوان\nمنيه النصر - الدقهلية\n\nشارع البحر - مقابل ستار مول\n\nأعلى يونيكورن - الدور الخامس")
+    st.markdown("### 📍 العنوان\nالدقهليه - منيه النصر - شارع البحر\nمقابل استار مول - الدور الخامس")
     st.caption("شكرا لاختياركم بيوتي سنتر يارا ثروت💕")
