@@ -8,25 +8,6 @@ st.set_page_config(page_title="❤️اهلا بكم في بيوتي سنتر ي
 logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 whatsapp_num = "201055901090"
 
-# --- ستايل الأزرار لتظهر بشكل احترافي وتفتح في صفحة جديدة ---
-st.markdown("""
-    <style>
-    .nav-btn {
-        display: block;
-        width: 100%;
-        padding: 15px;
-        margin: 10px 0;
-        text-align: center;
-        background-color: #D4AF37;
-        color: white !important;
-        text-decoration: none;
-        border-radius: 10px;
-        font-weight: bold;
-        font-size: 18px;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
 # 3. قراءة "علامة الصفحة" من الرابط (Query Params)
 query_params = st.query_params
 current_page = query_params.get("p", "home")
@@ -34,7 +15,7 @@ current_page = query_params.get("p", "home")
 # 4. محتوى الصفحات بناءً على الاختيار
 # ------------------------------
 
-# أ. صفحة الحجز
+# أ. صفحة الحجز (التي تفتح في تاب جديد)
 if current_page == "booking":
     st.markdown("### 📅 بيانات الحجز")
     with st.form("booking_form"):
@@ -45,7 +26,7 @@ if current_page == "booking":
         submit = st.form_submit_button("إرسال البيانات", use_container_width=True)
         if submit and u_name and u_phone:
             msg = urllib.parse.quote(f"حجز جديد:\nالاسم: {u_name}\nالسن: {u_age}\nالعنوان: {u_address}\nالهاتف: {u_phone}")
-            st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" class="nav-btn" style="background-color: #25D366;">تأكيد عبر واتساب</a>', unsafe_allow_html=True)
+            st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" style="background-color: #25D366; color: white; padding: 15px; text-decoration: none; border-radius: 10px; display: block; text-align: center;">تأكيد عبر واتساب</a>', unsafe_allow_html=True)
 
 # ب. صفحة الأسعار
 elif current_page == "prices":
@@ -57,15 +38,15 @@ elif current_page == "gallery":
     st.markdown("### ✨ معرض الأعمال")
     st.success("قريباً سيتم عرض الصور هنا")
 
-# د. الصفحة الرئيسية (الافتراضية)
+# د. الصفحة الرئيسية (الشكل القديم بدون اللون الأصفر)
 else:
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>❤️اهلا بكم في بيوتي سنتر يارا ثروت❤️</h2>", unsafe_allow_html=True)
     
-    # الروابط اللي بتفتح نفس الموقع في تاب جديد (الخديعة البرمجية)
-    st.markdown('<a href="./?p=booking" target="_blank" class="nav-btn">📅 للحجز</a>', unsafe_allow_html=True)
-    st.markdown('<a href="./?p=prices" target="_blank" class="nav-btn">💰 قائمة الأسعار</a>', unsafe_allow_html=True)
-    st.markdown('<a href="./?p=gallery" target="_blank" class="nav-btn">✨ صور لشغلنا</a>', unsafe_allow_html=True)
+    # روابط بسيطة تفتح في صفحات جديدة وتظهر كأزرار عادية
+    st.markdown('<a href="./?p=booking" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">📅 للحجز</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="./?p=prices" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">💰 قائمة الأسعار</div></a>', unsafe_allow_html=True)
+    st.markdown('<a href="./?p=gallery" target="_blank" style="text-decoration: none; color: inherit;"><div style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; text-align: center; margin-bottom: 10px;">✨ صور لشغلنا</div></a>', unsafe_allow_html=True)
 
 # تذييل ثابت لكل الصفحات
 st.write("---")
