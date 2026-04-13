@@ -6,12 +6,14 @@ from datetime import datetime, timedelta
 # 1. إعدادات الصفحة
 st.set_page_config(page_title="✨اهلا بكم في بيوتي سنتر يارا ثروت✨", layout="centered")
 
-# --- وظيفة حساب حالة العمل ---
+# --- وظيفة حساب حالة العمل (توقيت مصر UTC+3) ---
 def get_business_status():
     now = datetime.utcnow() + timedelta(hours=3)
     current_hour = now.hour
-    start_hour = 11
-    end_hour = 22
+    
+    start_hour = 11  # ميعاد الفتح
+    end_hour = 22    # ميعاد القفل
+    
     if start_hour <= current_hour < end_hour:
         return "🟢 نحن متاحون الآن.. أهلاً بكِ", "rgba(40, 167, 69, 0.1)", "#28a745"
     else:
@@ -40,6 +42,7 @@ whatsapp_num = "201055901090"
 phone_1 = "01055901090"
 phone_2 = "01055907095"
 ADMIN_PASSWORD = "9811" 
+
 site_url = "https://yara-tharwat.streamlit.app" 
 share_msg = urllib.parse.quote(f"بصي يا جميلة، شوفت بيوتي سنتر يارا ثروت وشغله عجبني جداً، شوفي موقعهم من هنا: {site_url}")
 
@@ -70,6 +73,11 @@ elif current_page == "prices":
 
 elif current_page == "reviews":
     st.markdown("### ✨ رأي عملائنا")
+    with st.expander("اضف رأيك"):
+        with st.form("review_form"):
+            r_name, r_text = st.text_input("الاسم"), st.text_area("الرأي")
+            if st.form_submit_button("نشر"):
+                if r_name and r_text: handle_reviews("add", f"{r_text}|{r_name}"); st.rerun()
     all_revs = handle_reviews()
     for rev in reversed(all_revs):
         if "|" in rev:
@@ -84,45 +92,7 @@ elif current_page == "gallery":
     if st.button("العودة للرئيسية"): st.query_params.clear(); st.rerun()
 
 else:
-    # الصفحة الرئيسية
-    # إضافة "الزر العائم" لجذب الانتباه للقائمة الجانبية
-    st.markdown('''
-        <style>
-        /* إخفاء زر Fork الافتراضي عشان ميزحمش الدنيا */
-        #MainMenu {visibility: hidden;}
-        header {visibility: hidden;}
-        
-        /* تصميم الزر العائم الشيك */
-        .floating-menu {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 50px;
-            height: 50px;
-            background-color: #D4AF37;
-            color: black;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
-            z-index: 99999;
-            animation: pulse 2s infinite;
-            cursor: pointer;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-        }
-        </style>
-        <div class="floating-menu" onclick="document.querySelector('.stSidebar').style.display='block'">
-            ☰
-        </div>
-    ''', unsafe_allow_html=True)
-
+    # الرئيسية (بدون أي نصوص أو أزرار زيادة)
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>✨اهلا بكم في بيوتي سنتر يارا ثروت✨</h2>", unsafe_allow_html=True)
     
