@@ -1,21 +1,21 @@
 import streamlit as st
 import urllib.parse
 
-# 1. إعدادات الصفحة
+# 1. إعدادات الصفحة (مثالية للموبايل)
 st.set_page_config(page_title="بيوتي سنتر يارا ثروت", layout="centered")
 
-# 2. روابط البيانات الأساسية
+# 2. روابط البيانات
 logo_url = "https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png"
 whatsapp_num = "201055901090"
 
-# 3. إدارة التنقل بضغطة واحدة
+# 3. نظام التنقل
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
 def go_to(page_name):
     st.session_state.page = page_name
 
-# 4. الشريط الجانبي (تليفون وعنوان فقط)
+# 4. الشريط الجانبي (معلومات التواصل فقط)
 with st.sidebar:
     st.image(logo_url, width=150)
     st.markdown("### 📞 للتواصل")
@@ -31,6 +31,10 @@ if st.session_state.page == 'home':
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>مرحباً بكم في بيوتي سنتر يارا ثروت</h2>", unsafe_allow_html=True)
     st.write("<p style='text-align: center;'>اختار القسم الذي تريده:</p>", unsafe_allow_html=True)
     
-    # أزرار موبايل كبيرة سهلة اللمس
+    # أزرار موبايل كبيرة
     st.button("📅 حجز موعد", use_container_width=True, on_click=go_to, args=('booking',))
-    st.button("💰
+    st.button("💰 قائمة الأسعار", use_container_width=True, on_click=go_to, args=('prices',))
+    st.button("✨ معرض الأعمال", use_container_width=True, on_click=go_to, args=('gallery',))
+
+# ب. صفحة الحجز
+elif
