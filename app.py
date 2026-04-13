@@ -52,11 +52,11 @@ if current_page == "booking":
 
 elif current_page == "prices":
     st.markdown("### 💰 قائمة الأسعار")
-    # هنا تقدر تضيف جدول أو نصوص للأسعار
+
     st.markdown('''
     <div style="padding: 20px; border: 1px solid rgba(49, 51, 63, 0.2); border-radius: 10px; text-align: center;">
         <h4>قائمة الخدمات</h4>
-        <p>مكياج - عناية بالبشرة - قص شعر - وأكثر</p>
+        <p>كل مل يخص البشره والشعر </p>
         <p style="color: #D4AF37;">(يرجى التواصل معنا لمعرفة العروض الحالية)</p>
     </div>
     ''', unsafe_allow_html=True)
