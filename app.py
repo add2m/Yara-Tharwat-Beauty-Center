@@ -68,7 +68,7 @@ if current_page == "booking":
                 st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" style="background-color: #25D366; color: white; padding: 15px; text-decoration: none; border-radius: 10px; display: block; text-align: center;">تأكيد عبر واتساب</a>', unsafe_allow_html=True)
 
 elif current_page == "prices":
-    st.markdown("### 💰 قائمة الأسعار")
+    st.markdown("### 💵 قائمة الأسعار")
     st.info("سيتم إضافة قائمة الأسعار قريباً")
 
 elif current_page == "reviews":
@@ -107,7 +107,7 @@ else:
     # الرئيسية
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>✨اهلا بكم في بيوتي سنتر يارا ثروت✨</h2>", unsafe_allow_html=True)
-    for title, p in [("📅 للحجز", "booking"), ("💰 قائمة الأسعار", "prices"), ("⭐ رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
+    for title, p in [("📆 للحجز", "booking"), ("💵 قائمة الأسعار", "prices"), ("🌟 رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
         st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:12px; border:1px solid rgba(49, 51, 63, 0.2); border-radius:8px; text-align:center; margin-bottom:12px;">{title}</div></a>', unsafe_allow_html=True)
 
 # 5. Sidebar
@@ -116,6 +116,6 @@ with st.sidebar:
     st.markdown(f'<div style="background-color: {bg_color}; color: {text_color}; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 15px; border: 1px solid {text_color};">{status_msg}</div>', unsafe_allow_html=True)
     st.markdown(f'<a href="tel:{phone_1}" style="text-decoration:none;"><div style="background-color:#007bff; color:white; padding:10px; border-radius:8px; text-align:center; margin-bottom:10px;">📞 اتصل بنا الآن</div></a>', unsafe_allow_html=True)
     st.markdown(f'<a href="https://wa.me/?text={share_msg}" target="_blank" style="text-decoration:none;"><div style="background-color:#25D366; color:white; padding:10px; border-radius:8px; text-align:center; margin-bottom:10px;">🔗 إرسال الموقع لصديقتك</div></a>', unsafe_allow_html=True)
-    st.markdown(f'<div style="padding:10px; border:1px solid rgba(49,51,63,0.1); border-radius:5px;">📱 {phone_1}<br>📱 {phone_2}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="padding:10px; border:1px solid rgba(49,51,63,0.1); border-radius:5px;">📞 {phone_1}<br>📞 {phone_2}</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### 📍 العنوان\n الدقهليه - منيه النصر - \n شارع البحر - امام استار مول - \n اعلى يونيكورن - الدور الخامس")
