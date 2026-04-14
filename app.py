@@ -4,7 +4,7 @@ import os
 from datetime import datetime, timedelta
 
 # ============================================================
-# 1. إعدادات الصفحة المتقدمة (Streamlit Config)
+# 1. إعدادات الصفحة والوظائف المتقدمة (Streamlit Config)
 # ============================================================
 st.set_page_config(
     page_title="✨ بيوتي سنتر يارا ثروت ✨",
@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- وظيفة التعامل مع ملف الآراء (كودك الأصلي) ---
+# --- وظيفة التعامل مع ملف الآراء ---
 def handle_reviews(action="read", data=None):
     file_path = "reviews.txt"
     if not os.path.exists(file_path):
@@ -34,7 +34,7 @@ def handle_reviews(action="read", data=None):
     return reviews
 
 # ============================================================
-# 2. كود الـ CSS الملكي (النسخة الأصلية الطويلة)
+# 2. كود الـ CSS الملكي (النسخة الاحترافية الطويلة)
 # ============================================================
 st.markdown("""
 <style>
@@ -86,7 +86,7 @@ st.markdown("""
         animation: scissors-swing 8s ease-in-out infinite;
     }
 
-    /* تنسيق الأزرار (فتح في تاب جديد) */
+    /* تنسيق الأزرار الذهبية */
     .nav-btn {
         border: 1px solid rgba(212, 175, 55, 0.4) !important;
         background: rgba(255, 255, 255, 0.03) !important;
@@ -137,7 +137,7 @@ PHONES = ["01055901090", "01055907095"]
 ADDR = "الدقهلية - منية النصر - شارع البحر - أمام ستار مول - أعلى يونيكورن - الدور الخامس"
 ADMIN_PWD = "9811"
 
-# الفيديوهات التي أرسلتها
+# الفيديوهات
 VIDS = [
     "1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL", "1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi4hzi",
     "1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0", "1wlMl0Mi7COStjKh1d8B9JxWqj7Cf-fD1",
@@ -145,7 +145,7 @@ VIDS = [
 ]
 
 # ============================================================
-# 4. السايدبار (الجهة اليمنى)
+# 4. السايدبار (Sidebar)
 # ============================================================
 with st.sidebar:
     st.image(LOGO, use_container_width=True)
@@ -158,37 +158,56 @@ with st.sidebar:
     st.markdown(f"""<div style="padding:15px; border:1px solid rgba(212,175,55,0.2); border-radius:10px; background:rgba(255,255,255,0.02); font-size:14px;"><b>📱 أرقامنا:</b><br>{PHONES[0]}<br>{PHONES[1]}<br><hr><b>📍 العنوان:</b><br>{ADDR}</div>""", unsafe_allow_html=True)
 
 # ============================================================
-# 5. إدارة المحتوى (Navigation & Pages)
+# 5. الصفحات والمحتوى (Navigation)
 # ============================================================
 p = st.query_params.get("p", "home")
 
 if p == "home":
     st.image(LOGO, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color:#D4AF37;'>✨ بيوتي سنتر يارا ثروت ✨</h2>", unsafe_allow_html=True)
-    menu = [("📅 للحجز والاستفسار", "booking"), ("🎥 معرض فيديوهاتنا", "gallery"), ("⭐ آراء الجميلات", "reviews")]
+    
+    # القائمة الرئيسية محدثة بخيار الأسعار
+    menu = [
+        ("📅 للحجز والاستفسار ✨💄", "booking"), 
+        ("💰 قائمة الأسعار والعروض 💸", "prices"),
+        ("🎥 معرض فيديوهاتنا 🎬", "gallery"), 
+        ("⭐ آراء الجميلات 💖", "reviews")
+    ]
     for text, target in menu:
         st.markdown(f'<a href="./?p={target}" target="_blank" class="nav-btn">{text}</a>', unsafe_allow_html=True)
 
+elif p == "booking":
+    st.markdown("### 📅 حجز موعد جديد ✨")
+    col1, col2 = st.columns(2)
+    with col1:
+        name = st.text_input("الاسم 👤")
+        age = st.text_input("السن 🎂") # إضافة خانة السن كما طلبت
+    with col2:
+        phone = st.text_input("رقم الموبايل 📱")
+        service = st.selectbox("الخدمة المطلوبة ✨", ["شعر", "بشرة", "حمام مغربي", "أخرى"])
+    
+    notes = st.text_area("ملاحظات إضافية 📝")
+    
+    if st.button("🚀 إرسال الطلب عبر واتساب", use_container_width=True):
+        if name and phone:
+            msg = f"✨ طلب حجز جديد ✨\nالاسم: {name}\nالسن: {age}\nالهاتف: {phone}\nالخدمة: {service}\nملاحظات: {notes}"
+            st.markdown(f'<meta http-equiv="refresh" content="0; url=https://wa.me/{WA_NUM}?text={urllib.parse.quote(msg)}">', unsafe_allow_html=True)
+            st.success("جاري التحويل للواتساب...")
+
+elif p == "prices":
+    st.markdown("### 💰 قائمة الأسعار والعروض 💸")
+    st.info("انتظروا أقوى عروض الموسم الحصرية قريباً جداً! 🔥")
+    # يمكنك إضافة جدول أسعار هنا مستقبلاً
+
 elif p == "gallery":
-    st.markdown("<h3 style='text-align: center;'>🎥 معرض الفيديوهات</h3>", unsafe_allow_html=True)
+    st.markdown("### 🎥 معرض الفيديوهات 🎬")
     for v_id in VIDS:
-        # تصحيح عرض الفيديوهات من جوجل درايف
         st.markdown(f'<iframe src="https://drive.google.com/file/d/{v_id}/preview" width="100%" height="450"></iframe>', unsafe_allow_html=True)
         st.write("---")
 
-elif p == "booking":
-    st.markdown("### 🗓️ حجز موعد")
-    c1, c2 = st.columns(2); name = c1.text_input("الاسم"); phone = c2.text_input("الموبايل")
-    service = st.selectbox("الخدمة", ["شعر", "بشرة", "حمام مغربي", "أخرى"])
-    notes = st.text_area("ملاحظات إضافية 📝")
-    if st.button("🚀 إرسال الطلب", use_container_width=True):
-        if name and phone:
-            msg = f"✨ طلب حجز ✨\nالاسم: {name}\nالهاتف: {phone}\nالخدمة: {service}\nملاحظات: {notes}"
-            st.markdown(f'<meta http-equiv="refresh" content="0; url=https://wa.me/{WA_NUM}?text={urllib.parse.quote(msg)}">', unsafe_allow_html=True)
-
 elif p == "reviews":
-    st.markdown("### ✨ آراء عملائنا")
-    with st.expander("اضف رأيك هنا"):
+    st.markdown("### ⭐ آراء الجميلات 💖")
+    with st.expander("اضف رأيك هنا ✨"):
         with st.form("review_form"):
             r_name = st.text_input("الاسم")
             r_text = st.text_area("رأيك")
@@ -208,7 +227,7 @@ elif p == "reviews":
 
     st.write("---")
     with st.expander("🔐 إدارة التعليقات"):
-        pwd = st.text_input("أدخل كلمة المرور للحذف", type="password")
+        pwd = st.text_input("كلمة المرور", type="password")
         if pwd == ADMIN_PWD:
             for i, rev in enumerate(all_revs):
                 if "|" in rev:
