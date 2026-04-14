@@ -52,6 +52,41 @@ video_ids = ["1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL", "1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi
              "1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0", "1wlMl0Mi7COStjKh1d8B9JxWqj7Cf-fD1", 
              "1mGeV2CQrYyJCwZkSGBrB2rhMqta8BlOU"]
 
+# --- إضافة: شريط التنقل العلوي الحديث ---
+st.markdown("""
+    <style>
+    .nav-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        border: 1px solid #eee;
+    }
+    .nav-link {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+        padding: 8px 15px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .nav-link:hover {
+        background-color: #D4AF37;
+        color: white;
+    }
+    </style>
+    <div class="nav-container">
+        <a class="nav-link" href="./?p=home" target="_self">الرئيسية</a>
+        <a class="nav-link" href="./?p=booking" target="_self">الحجز</a>
+        <a class="nav-link" href="./?p=prices" target="_self">الأسعار</a>
+        <a class="nav-link" href="./?p=gallery" target="_self">شغلنا</a>
+        <a class="nav-link" href="./?p=reviews" target="_self">الآراء</a>
+    </div>
+""", unsafe_allow_html=True)
+
 # 3. إدارة التنقل
 query_params = st.query_params
 current_page = query_params.get("p", "home")
@@ -104,11 +139,13 @@ elif current_page == "gallery":
         st.write("---")
 
 else:
-    # الرئيسية
+    # الصفحة الرئيسية
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>✨اهلا بكم في بيوتي سنتر يارا ثروت✨</h2>", unsafe_allow_html=True)
-    for title, p in [("📆 للحجز", "booking"), ("💵 قائمة الأسعار", "prices"), ("🌟 رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
-        st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:12px; border:1px solid rgba(49, 51, 63, 0.2); border-radius:8px; text-align:center; margin-bottom:12px;">{title}</div></a>', unsafe_allow_html=True)
+    
+    # الأزرار الكبيرة في الرئيسية
+    for title, p in [("📆 للحجز الاستفسار", "booking"), ("💵 قائمة الأسعار", "prices"), ("🌟 رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
+        st.markdown(f'<a href="./?p={p}" target="_self" style="text-decoration:none;color:inherit;"><div style="padding:15px; border:1px solid rgba(49, 51, 63, 0.2); border-radius:10px; text-align:center; margin-bottom:12px; background-color: #fdfdfd; font-size: 18px; font-weight: bold;">{title}</div></a>', unsafe_allow_html=True)
 
 # 5. Sidebar
 with st.sidebar:
