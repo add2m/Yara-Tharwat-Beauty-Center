@@ -50,7 +50,7 @@ video_ids = ["1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL", "1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi
              "1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0", "1wlMl0Mi7COStjKh1d8B9JxWqj7Cf-fD1", 
              "1mGeV2CQrYyJCwZkSGBrB2rhMqta8BlOU"]
 
-# --- شريط التنقل العلوي (يفتح في تاب جديد) ---
+# --- شريط التنقل العلوي ---
 st.markdown("""
     <style>
     .nav-container {
@@ -97,12 +97,19 @@ current_page = query_params.get("p", "home")
 if current_page == "booking":
     st.markdown("### 📅 بيانات الحجز")
     with st.form("booking_form"):
-        u_name = st.text_input("الاسم")
+        u_name = st.text_input("الاسم بالكامل")
         u_phone = st.text_input("رقم الهاتف")
+        u_age = st.text_input("السن") # إضافة خانة السن
+        u_address = st.text_input("العنوان") # إضافة خانة العنوان
+        
         if st.form_submit_button("إرسال البيانات", use_container_width=True):
             if u_name and u_phone:
-                msg = urllib.parse.quote(f"حجز جديد:\nالاسم: {u_name}\nالهاتف: {u_phone}")
-                st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" style="background-color: #25D366; color: white; padding: 15px; text-decoration: none; border-radius: 10px; display: block; text-align: center;">تأكيد عبر واتساب</a>', unsafe_allow_html=True)
+                # تحديث الرسالة لتشمل السن والعنوان
+                full_msg = f"حجز جديد من الموقع:\n- الاسم: {u_name}\n- الهاتف: {u_phone}\n- السن: {u_age}\n- العنوان: {u_address}"
+                msg = urllib.parse.quote(full_msg)
+                st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" style="background-color: #25D366; color: white; padding: 15px; text-decoration: none; border-radius: 10px; display: block; text-align: center; font-weight: bold;">تأكيد الحجز عبر واتساب</a>', unsafe_allow_html=True)
+            else:
+                st.error("من فضلك ادخلي الاسم ورقم الهاتف على الأقل")
 
 elif current_page == "prices":
     st.markdown("### 💵 قائمة الأسعار")
@@ -110,6 +117,7 @@ elif current_page == "prices":
 
 elif current_page == "reviews":
     st.markdown("### ✨ رأي عملائنا")
+    # ... (نفس كود المراجعات بدون تغيير)
     with st.expander("اضف رأيك هنا"):
         with st.form("review_form"):
             r_name = st.text_input("الاسم")
@@ -144,7 +152,7 @@ else:
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>✨اهلا بكم في بيوتي سنتر يارا ثروت✨</h2>", unsafe_allow_html=True)
     
-    for title, p in [("📆 للحجز الاستفسار", "booking"), ("💵 قائمة الأسعار", "prices"), ("🌟 رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
+    for title, p in [("📆 للحجز والاستفسار", "booking"), ("💵 قائمة الأسعار", "prices"), ("🌟 رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
         st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:15px; border:1px solid rgba(49, 51, 63, 0.2); border-radius:10px; text-align:center; margin-bottom:12px; background-color: #fdfdfd; font-size: 18px; font-weight: bold;">{title}</div></a>', unsafe_allow_html=True)
 
 # 5. Sidebar
@@ -156,5 +164,4 @@ with st.sidebar:
     st.markdown(f'<div style="padding:10px; border:1px solid rgba(49,51,63,0.1); border-radius:5px;">📞 {phone_1}<br>📞 {phone_2}</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### 📍 العنوان\n الدقهليه - منيه النصر - \n شارع البحر - امام استار مول - \n اعلى يونيكورن - الدور الخامس")
-
 
