@@ -99,12 +99,11 @@ if current_page == "booking":
     with st.form("booking_form"):
         u_name = st.text_input("الاسم بالكامل")
         u_phone = st.text_input("رقم الهاتف")
-        u_age = st.text_input("السن") # إضافة خانة السن
-        u_address = st.text_input("العنوان") # إضافة خانة العنوان
+        u_age = st.text_input("السن") # دي الخانة الجديدة 1
+        u_address = st.text_input("العنوان") # دي الخانة الجديدة 2
         
         if st.form_submit_button("إرسال البيانات", use_container_width=True):
             if u_name and u_phone:
-                # تحديث الرسالة لتشمل السن والعنوان
                 full_msg = f"حجز جديد من الموقع:\n- الاسم: {u_name}\n- الهاتف: {u_phone}\n- السن: {u_age}\n- العنوان: {u_address}"
                 msg = urllib.parse.quote(full_msg)
                 st.markdown(f'<a href="https://wa.me/{whatsapp_num}?text={msg}" target="_blank" style="background-color: #25D366; color: white; padding: 15px; text-decoration: none; border-radius: 10px; display: block; text-align: center; font-weight: bold;">تأكيد الحجز عبر واتساب</a>', unsafe_allow_html=True)
