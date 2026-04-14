@@ -34,7 +34,7 @@ def handle_reviews(action="read", data=None):
     return reviews
 
 # ============================================================
-# 2. كود الـ CSS الملكي (النسخة الطويلة)
+# 2. كود الـ CSS الملكي (تم تعديل السايدبار ليكون في اليسار)
 # ============================================================
 st.markdown("""
 <style>
@@ -46,15 +46,14 @@ st.markdown("""
         text-align: right;
     }
 
+    /* السايدبار جهة اليسار (الوضع الافتراضي لستريمليت) */
     [data-testid="stSidebar"] {
-        position: fixed;
-        right: 0 !important;
-        left: auto !important;
         background-color: #080808 !important;
-        border-right: 2px solid #D4AF37;
+        border-left: 2px solid #D4AF37;
         z-index: 100;
     }
     
+    /* ضبط اتجاه النصوص داخل السايدبار */
     section[data-testid="stSidebar"] > div { direction: rtl; }
 
     .stApp {
@@ -139,7 +138,7 @@ VIDS = [
 ]
 
 # ============================================================
-# 4. السايدبار (تحديث زر المشاركة للواتساب)
+# 4. السايدبار (في جهة اليسار)
 # ============================================================
 with st.sidebar:
     st.image(LOGO, use_container_width=True)
@@ -151,9 +150,8 @@ with st.sidebar:
     # أزرار الاتصال
     st.markdown(f'<a href="tel:{PHONES[0]}" target="_blank" style="text-decoration:none;"><div style="background:#007bff; color:white; padding:12px; border-radius:10px; text-align:center; margin-bottom:10px; font-weight:bold;">📞 اتصلي بنا</div></a>', unsafe_allow_html=True)
     
-    # --- زر المشاركة عبر الواتساب الجديد ---
+    # زر المشاركة عبر الواتساب
     share_text = "شوفت بيوتي سنتر يارا ثروت وعجبني ادخلي شوفيه انتي كمان من اللينك ده"
-    # ملاحظة: يمكنك وضع رابط موقعك الفعلي بدلاً من window.location.origin إذا كان ثابتاً
     wa_share_url = f"https://wa.me/?text={urllib.parse.quote(share_text)}https://yara-tharwat.streamlit.app/"
     
     st.markdown(f"""
