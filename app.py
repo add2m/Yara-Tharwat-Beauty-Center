@@ -6,70 +6,49 @@ from datetime import datetime, timedelta
 # 1. إعدادات الصفحة
 st.set_page_config(page_title="✨اهلا بكم في بيوتي سنتر يارا ثروت✨", layout="centered")
 
-# --- إضافة: خلفية متحركة مكثفة (أيقونات مقص وشعر بلون غامق) ---
+# --- خلفية "رخامية فخمة" متحركة بلمسة ذهبية ---
 st.markdown("""
 <style>
 .stApp {
-    background-color: #0f0f0f;
-    overflow: hidden;
+    background: linear-gradient(135deg, #0f0f0f 25%, #1a1a1a 50%, #0f0f0f 75%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
 }
 
-.beauty-bg {
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* إضافة لمسة بريق خفيفة جداً في الخلفية */
+.stApp::before {
+    content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 20%);
     pointer-events: none;
     z-index: 0;
 }
 
-.beauty-bg span {
-    position: absolute;
-    display: block;
-    width: 35px;
-    height: 35px;
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0.12; /* درجة شفافية هادية */
-    animation: moveBeauty 20s linear infinite;
+/* تنسيق المربعات لتكون منسجمة مع الفخامة */
+div[data-testid="stMarkdownContainer"] > div > a > div {
+    border: 1px solid rgba(212, 175, 55, 0.2) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(5px);
+    transition: 0.4s !important;
+    color: #eee !important;
 }
 
-@keyframes moveBeauty {
-    0% { transform: translateY(110vh) rotate(0deg); }
-    100% { transform: translateY(-20vh) rotate(360deg); }
+div[data-testid="stMarkdownContainer"] > div > a > div:hover {
+    border: 1px solid rgba(212, 175, 55, 0.8) !important;
+    background: rgba(212, 175, 55, 0.05) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
 }
-
-/* أيقونة المقص والمشط - لون رمادي غامق فخم */
-.icon-style {
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="%23444444"><path d="M442.2 26.3c-10.1-10.1-26.5-10.1-36.5 0L303.5 128.5V112c0-8.8-7.2-16-16-16s-16 7.2-16 16v64c0 8.8 7.2 16 16 16h64c8.8 0 16-7.2 16-16s-7.2-16-16-16H344.5l97.7-97.7c10.1-10.1 10.1-26.5 0-36.5zM153 223c-18.7-18.7-49.1-18.7-67.9 0l-58.8 58.8c-18.7 18.7-18.7 49.1 0 67.9s49.1 18.7 67.9 0L153 290.9c18.7-18.7 18.7-49.1 0-67.9z"/></svg>');
-}
-
-/* توزيع 12 أيقونة في الفراغات */
-.beauty-bg span:nth-child(1) { left: 5%; animation-delay: 0s; animation-duration: 22s; }
-.beauty-bg span:nth-child(2) { left: 15%; animation-delay: 4s; animation-duration: 18s; }
-.beauty-bg span:nth-child(3) { left: 25%; animation-delay: 8s; animation-duration: 25s; }
-.beauty-bg span:nth-child(4) { left: 35%; animation-delay: 2s; animation-duration: 20s; }
-.beauty-bg span:nth-child(5) { left: 45%; animation-delay: 10s; animation-duration: 28s; }
-.beauty-bg span:nth-child(6) { left: 55%; animation-delay: 6s; animation-duration: 23s; }
-.beauty-bg span:nth-child(7) { left: 65%; animation-delay: 1s; animation-duration: 19s; }
-.beauty-bg span:nth-child(8) { left: 75%; animation-delay: 5s; animation-duration: 26s; }
-.beauty-bg span:nth-child(9) { left: 85%; animation-delay: 9s; animation-duration: 21s; }
-.beauty-bg span:nth-child(10) { left: 92%; animation-delay: 3s; animation-duration: 24s; }
-.beauty-bg span:nth-child(11) { left: 10%; animation-delay: 12s; animation-duration: 30s; }
-.beauty-bg span:nth-child(12) { left: 80%; animation-delay: 7s; animation-duration: 27s; }
-
-.element-container { z-index: 10; position: relative; }
 </style>
-
-<div class="beauty-bg">
-    <span class="icon-style"></span><span class="icon-style"></span>
-    <span class="icon-style"></span><span class="icon-style"></span>
-    <span class="icon-style"></span><span class="icon-style"></span>
-    <span class="icon-style"></span><span class="icon-style"></span>
-    <span class="icon-style"></span><span class="icon-style"></span>
-    <span class="icon-style"></span><span class="icon-style"></span>
-</div>
 """, unsafe_allow_html=True)
 
 # --- وظيفة حساب حالة العمل ---
@@ -138,6 +117,7 @@ elif current_page == "prices":
 
 elif current_page == "reviews":
     st.markdown("### ✨ رأي عملائنا")
+    # ... (نفس كود المراجعات)
     with st.expander("اضف رأيك هنا"):
         with st.form("review_form"):
             r_name = st.text_input("الاسم")
@@ -150,7 +130,7 @@ elif current_page == "reviews":
     for rev in reversed(all_revs):
         if "|" in rev:
             t, n = rev.strip().split("|")
-            st.markdown(f'<div style="padding:15px; border:1px solid rgba(49,51,63,0.2); border-radius:10px; margin-bottom:10px; background: rgba(255,255,255,0.05);">"{t}"<br><small style="color:#D4AF37;">- {n}</small></div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="padding:15px; border:1px solid rgba(212,175,55,0.2); border-radius:10px; margin-bottom:10px; background: rgba(255,255,255,0.02);">"{t}"<br><small style="color:#D4AF37;">- {n}</small></div>', unsafe_allow_html=True)
 
 elif current_page == "gallery":
     st.markdown("### ✨ فيديوهات من شغلنا")
@@ -159,10 +139,11 @@ elif current_page == "gallery":
         st.write("---")
 
 else:
+    # الصفحة الرئيسية
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>✨اهلا بكم في بيوتي سنتر يارا ثروت✨</h2>", unsafe_allow_html=True)
     for title, p in [("📆 للحجز والاستفسار", "booking"), ("💵 قائمة الأسعار", "prices"), ("🌟 رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
-        st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:12px; border:1px solid rgba(255, 255, 255, 0.1); border-radius:8px; text-align:center; margin-bottom:12px; background: rgba(255,255,255,0.02);">{title}</div></a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:15px; border:1px solid rgba(212,175,55,0.2); border-radius:10px; text-align:center; margin-bottom:12px;">{title}</div></a>', unsafe_allow_html=True)
 
 # 5. Sidebar
 with st.sidebar:
@@ -170,6 +151,6 @@ with st.sidebar:
     st.markdown(f'<div style="background-color: {bg_color}; color: {text_color}; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 15px; border: 1px solid {text_color};">{status_msg}</div>', unsafe_allow_html=True)
     st.markdown(f'<a href="tel:{phone_1}" style="text-decoration:none;"><div style="background-color:#007bff; color:white; padding:10px; border-radius:8px; text-align:center; margin-bottom:10px;">📞 اتصل بنا الآن</div></a>', unsafe_allow_html=True)
     st.markdown(f'<a href="https://wa.me/?text={share_msg}" target="_blank" style="text-decoration:none;"><div style="background-color:#25D366; color:white; padding:10px; border-radius:8px; text-align:center; margin-bottom:10px;">🔗 إرسال الموقع لصديقتك</div></a>', unsafe_allow_html=True)
-    st.markdown(f'<div style="padding:10px; border:1px solid rgba(255,255,255,0.1); border-radius:5px;">📞 {phone_1}<br>📞 {phone_2}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="padding:10px; border:1px solid rgba(212,175,55,0.1); border-radius:5px;">📞 {phone_1}<br>📞 {phone_2}</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### 📍 العنوان\n الدقهليه - منيه النصر - \n شارع البحر - امام استار مول - \n اعلى يونيكورن - الدور الخامس")
