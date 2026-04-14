@@ -6,54 +6,74 @@ from datetime import datetime, timedelta
 # 1. إعدادات الصفحة
 st.set_page_config(page_title="✨اهلا بكم في بيوتي سنتر يارا ثروت✨", layout="centered")
 
-# --- خلفية "جزيئات البلازما الذهبية السائلة" فائقة الديناميكية واللفت للانتباه ---
-# تم استخدام كود CSS و JavaScript (عبر iframe) لإنشاء تأثير جزيئات متفاعل ومتحرك بكثافة.
+# --- خلفية "تموجات الشفق القطبي الذهبية" فائقة الدهشة والمضمونة 100% ---
+# تم استخدام كود CSS نقي لإنشاء تأثير حركة أمواج متدرجة بالأسود والذهبي.
 st.markdown("""
 <style>
 /* تعيين خلفية سوداء أساسية */
 .stApp {
-    background-color: #000000;
+    background: #000;
+    overflow: hidden;
 }
 
-/* حاوية الخلفية المتحركة (iframe) */
-.dynamic-bg {
+/* حاوية الخلفية المتحركة */
+.stApp::before {
+    content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    border: none;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    
+    /* المتدرج اللوني المدهش: أسود ودرجات ذهبية خافتة */
+    background: radial-gradient(circle at center, rgba(15, 15, 15, 0) 0%, #000 100%),
+                linear-gradient(135deg, 
+                                #000 0%, 
+                                #111 25%, 
+                                rgba(212, 175, 55, 0.08) 50%, 
+                                #111 75%, 
+                                #000 100%);
+    
+    background-size: 400% 400%;
+    
+    /* حركة تموجات بطيئة وناعمة */
+    animation: goldAuroraWaves 30s ease infinite;
     z-index: 0;
-    pointer-events: none; /* عشان متوقفش الكليك على المحتوى */
-    opacity: 0.6; /* درجة شفافية عشان متغطيش على الكلام تماماً */
+    pointer-events: none;
+    opacity: 0.7; /* درجة شفافية عشان متغطيش على الكلام */
 }
 
-/* تنسيق المحتوى ليكون فوق الخلفية */
+@keyframes goldAuroraWaves {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* تأكيد إن المحتوى نفسه ظاهر فوق الخلفية وواضح */
 .element-container, .stMarkdown, .stImage, .stButton {
     position: relative;
     z-index: 10;
 }
 
-/* تنسيق المربعات والزرار لتكون بارزة ولامعة */
-div[data-testid="stMarkdownContainer"] > div > a > div, .stButton > button {
-    border: 2px solid rgba(212, 175, 55, 0.4) !important;
-    background: rgba(0, 0, 0, 0.5) !important;
-    backdrop-filter: blur(10px);
-    transition: 0.3s all ease-in-out !important;
-    color: #fff !important;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.1);
+/* تنسيق المربعات لتكون منسجمة مع الفخامة والدهشة */
+div[data-testid="stMarkdownContainer"] > div > a > div {
+    border: 1px solid rgba(212, 175, 55, 0.2) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(5px);
+    transition: 0.4s !important;
+    color: #eee !important;
 }
 
-div[data-testid="stMarkdownContainer"] > div > a > div:hover, .stButton > button:hover {
-    border: 2px solid rgba(212, 175, 55, 1) !important;
-    background: rgba(212, 175, 55, 0.1) !important;
-    transform: scale(1.02);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+div[data-testid="stMarkdownContainer"] > div > a > div:hover {
+    border: 1px solid rgba(212, 175, 55, 0.8) !important;
+    background: rgba(212, 175, 55, 0.05) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.1);
 }
 </style>
-
-<iframe class="dynamic-bg" src="https://www.vantajs.com/gallery/vanta.cells.html?mouseControls=false&touchControls=false&gyroControls=false&minHeight=200.00&minWidth=200.00&scale=1.00&scaleMobile=1.00&color=0xd4af37&color2=0x0&size=1.50&speed=1.50" title="Golden Plasma Background"></iframe>
 """, unsafe_allow_html=True)
+
+# --- باقي الكود الأساسي كما هو تماماً ---
 
 # --- وظيفة حساب حالة العمل ---
 def get_business_status():
@@ -133,7 +153,7 @@ elif current_page == "reviews":
     for rev in reversed(all_revs):
         if "|" in rev:
             t, n = rev.strip().split("|")
-            st.markdown(f'<div style="padding:15px; border:2px solid rgba(212,175,55,0.2); border-radius:10px; margin-bottom:10px; background: rgba(0,0,0,0.6);">"{t}"<br><small style="color:#D4AF37;">- {n}</small></div>', unsafe_allow_html=True)
+            st.markdown(f'<div style="padding:15px; border:1px solid rgba(212,175,55,0.2); border-radius:10px; margin-bottom:10px; background: rgba(255,255,255,0.02);">"{t}"<br><small style="color:#D4AF37;">- {n}</small></div>', unsafe_allow_html=True)
 
 elif current_page == "gallery":
     st.markdown("### ✨ فيديوهات من شغلنا")
@@ -146,7 +166,7 @@ else:
     st.image(logo_url, use_container_width=True)
     st.markdown("<h2 style='text-align: center; color: #D4AF37;'>✨اهلا بكم في بيوتي سنتر يارا ثروت✨</h2>", unsafe_allow_html=True)
     for title, p in [("📆 للحجز والاستفسار", "booking"), ("💵 قائمة الأسعار", "prices"), ("🌟 رأي عملائنا", "reviews"), ("✨ صور لشغلنا", "gallery")]:
-        st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:15px; border:2px solid rgba(212,175,55,0.4); border-radius:10px; text-align:center; margin-bottom:12px;">{title}</div></a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="./?p={p}" target="_blank" style="text-decoration:none;color:inherit;"><div style="padding:15px; border:1px solid rgba(212,175,55,0.2); border-radius:10px; text-align:center; margin-bottom:12px;">{title}</div></a>', unsafe_allow_html=True)
 
 # 5. Sidebar
 with st.sidebar:
@@ -154,6 +174,6 @@ with st.sidebar:
     st.markdown(f'<div style="background-color: {bg_color}; color: {text_color}; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; margin-bottom: 15px; border: 1px solid {text_color};">{status_msg}</div>', unsafe_allow_html=True)
     st.markdown(f'<a href="tel:{phone_1}" style="text-decoration:none;"><div style="background-color:#007bff; color:white; padding:10px; border-radius:8px; text-align:center; margin-bottom:10px;">📞 اتصل بنا الآن</div></a>', unsafe_allow_html=True)
     st.markdown(f'<a href="https://wa.me/?text={share_msg}" target="_blank" style="text-decoration:none;"><div style="background-color:#25D366; color:white; padding:10px; border-radius:8px; text-align:center; margin-bottom:10px;">🔗 إرسال الموقع لصديقتك</div></a>', unsafe_allow_html=True)
-    st.markdown(f'<div style="padding:10px; border:2px solid rgba(212,175,55,0.1); border-radius:5px;">📞 {phone_1}<br>📞 {phone_2}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div style="padding:10px; border:1px solid rgba(212,175,55,0.1); border-radius:5px;">📞 {phone_1}<br>📞 {phone_2}</div>', unsafe_allow_html=True)
     st.markdown("---")
     st.markdown("### 📍 العنوان\n الدقهليه - منيه النصر - \n شارع البحر - امام استار مول - \n اعلى يونيكورن - الدور الخامس")
