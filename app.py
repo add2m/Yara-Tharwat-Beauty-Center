@@ -140,7 +140,7 @@ with st.sidebar:
         <div style="background:{'rgba(40,167,69,0.1)' if is_open else 'rgba(220,53,69,0.1)'}; 
         color:{'#28a745' if is_open else '#dc3545'}; padding:12px; 
         border-radius:10px; text-align:center; font-weight:bold; border:1px solid;">
-            {'🟢 نستقبلكم الآن بكل حب' if is_open else '🔴 السنتر مغلق حالياً'}
+            {'🟢 مرحبا بكم الان' if is_open else '🔴 السنتر مغلق حالياً'}
         </div>
     """, unsafe_allow_html=True)
     
@@ -188,7 +188,7 @@ elif current_page == "booking":
     with col2:
         u_phone = st.text_input("رقم الموبايل 📱")
         # تم إزالة "ميك أب" من الخيارات بناءً على طلبك
-        u_service = st.selectbox("الخدمة المطلوبة ✨", ["شعر", "عناية بالبشرة", "حمام مغربي", "أخرى"])
+        u_service = st.selectbox("الخدمة المطلوبة ✨", ["شعر", "عناية بالبشرة", "أخرى"])
     
     # إضافة خانة الملاحظات الجديدة
     u_notes = st.text_area("هل لديكِ أي ملاحظات إضافية؟ 📝 (اختياري)")
