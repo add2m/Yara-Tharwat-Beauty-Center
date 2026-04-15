@@ -34,7 +34,7 @@ def handle_reviews(action="read", data=None):
     return reviews
 
 # ============================================================
-# 2. كود الـ CSS (التصميم الملكي وزر القائمة)
+# 2. كود الـ CSS (التصميم الملكي وزر القائمة المميز + إخفاء الأيقونات)
 # ============================================================
 st.markdown("""
 <style>
@@ -55,6 +55,7 @@ st.markdown("""
         border-right: 2px solid #D4AF37;
     }
 
+    /* تصميم زر القائمة الجانبية المميز (الملكي) */
     @keyframes pulse-gold {
         0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
         70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
@@ -79,6 +80,21 @@ st.markdown("""
         width: 25px !important;
         height: 25px !important;
     }
+
+    /* --- إخفاء الأيقونات المطلوبة --- */
+    /* إخفاء الأيقونة في الزاوية العلوية اليمنى (مثلاً أيقونة الكاميرا أو القائمة الأصلية) */
+    header[data-testid="stHeader"] .st-b0, 
+    header[data-testid="stHeader"] .st-ci {
+        visibility: hidden !important;
+        display: none !important;
+    }
+    
+    /* إخفاء أي تذييل أو MainMenu (المقص) */
+    footer, #MainMenu, .scissors-container {
+        visibility: hidden !important;
+        display: none !important;
+    }
+    /* ---------------------------------- */
 
     .stApp {
         background: #000000;
@@ -111,29 +127,9 @@ st.markdown("""
         margin-bottom: 12px;
         background: rgba(255,255,255,0.02);
     }
-
-    @keyframes scissors-swing {
-        0% { transform: rotate(0deg); opacity: 0.15; }
-        50% { transform: rotate(-12deg); opacity: 0.3; }
-        100% { transform: rotate(0deg); opacity: 0.15; }
-    }
-    .scissors-container {
-        position: fixed;
-        bottom: 5%;
-        left: 5%; 
-        width: 200px;
-        z-index: 0;
-        pointer-events: none;
-        animation: scissors-swing 8s infinite;
-    }
-
+    
     header[data-testid="stHeader"] { background: transparent !important; }
-    footer, #MainMenu { visibility: hidden; }
 </style>
-
-<div class="scissors-container">
-    <svg viewBox="0 0 512 512" fill="#D4AF37"><path d="M490.5 35.8c-18.7-18.7-49.1-18.7-67.9 0L256 202.5 89.4 35.8c-18.7-18.7-49.1-18.7-67.9 0-18.7 18.7-18.7 49.1 0 67.9L188.2 270.3l-142.1 142c-29.4 29.4-29.4 77 0 106.4 29.4 29.4 77 29.4 106.4 0l103.5-103.5 103.5 103.5c29.4 29.4 77 29.4 106.4 0 29.4-29.4 29.4-77 0-106.4l-142.1-142 166.7-166.6c18.7-18.8 18.7-49.2 0-67.9z"/></svg>
-</div>
 """, unsafe_allow_html=True)
 
 # ============================================================
@@ -181,11 +177,12 @@ if p == "home":
         ("⭐ آراء العملاء 💖", "reviews")
     ]
     for text, target in menu:
+        # الإصلاح: تم إضافة target="_blank" لفتح الروابط في تاب جديدة
         st.markdown(f'<a href="./?p={target}" target="_blank" class="nav-btn">{text}</a>', unsafe_allow_html=True)
 
 elif p == "booking":
     st.markdown("### 📅 حجز موعد جديد ✨")
-    # الإصلاح: تم إخراج زر الإرسال ليكون رابطاً مباشراً لضمان عمله في كل المتصفحات
+    # الإصلاح: تم الحفاظ على الزر كرابط مفتوح ومباشر لضمان عمله في كل المتصفحات
     col1, col2 = st.columns(2)
     with col1:
         name = st.text_input("الاسم 👤", key="b_name")
@@ -199,6 +196,7 @@ elif p == "booking":
     if name and phone:
         msg = f"✨ حجز جديد ✨\n--------------------------------------------------\n👤 الاسم: {name}\n🎂 السن: {age}\n📱 الهاتف: {phone}\n💄 الخدمة: {service}\n📝 ملاحظات: {user_notes}"
         final_wa_url = f"https://wa.me/{WA_NUM}?text={urllib.parse.quote(msg)}"
+        # الإصلاح: تم إضافة target="_blank" لفتح واتساب في تاب جديدة
         st.markdown(f'<a href="{final_wa_url}" target="_blank" class="nav-btn" style="background:#D4AF37 !important; color:black !important;">🚀 إرسال الطلب عبر واتساب</a>', unsafe_allow_html=True)
     else:
         st.warning("⚠️ يرجى كتابة الاسم ورقم الهاتف لتفعيل زر الإرسال")
