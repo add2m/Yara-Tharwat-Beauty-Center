@@ -4,7 +4,7 @@ import os
 from datetime import datetime, timedelta
 
 # ============================================================
-# 1. إعدادات الصفحة والوظائف المتقدمة
+# 1. إعدادات الصفحة
 # ============================================================
 st.set_page_config(
     page_title="✨ بيوتي سنتر يارا ثروت ✨",
@@ -34,7 +34,7 @@ def handle_reviews(action="read", data=None):
     return reviews
 
 # ============================================================
-# 2. كود الـ CSS الملكي (تم تعديل السايدبار ليكون في اليسار)
+# 2. كود الـ CSS الملكي (إجبار السايدبار على اليسار)
 # ============================================================
 st.markdown("""
 <style>
@@ -46,15 +46,18 @@ st.markdown("""
         text-align: right;
     }
 
-    /* السايدبار جهة اليسار (الوضع الافتراضي لستريمليت) */
+    /* كود إجبار السايدبار على جهة اليسار والمحتوى على اليمين */
     [data-testid="stSidebar"] {
+        left: 0 !important;
+        right: auto !important;
         background-color: #080808 !important;
-        border-left: 2px solid #D4AF37;
-        z-index: 100;
+        border-right: 2px solid #D4AF37;
+        border-left: none !important;
     }
     
-    /* ضبط اتجاه النصوص داخل السايدبار */
-    section[data-testid="stSidebar"] > div { direction: rtl; }
+    [data-testid="stSidebarNav"] {
+        direction: ltr !important;
+    }
 
     .stApp {
         background: #000000;
@@ -138,7 +141,7 @@ VIDS = [
 ]
 
 # ============================================================
-# 4. السايدبار (في جهة اليسار)
+# 4. السايدبار (تم تثبيته في جهة اليسار)
 # ============================================================
 with st.sidebar:
     st.image(LOGO, use_container_width=True)
@@ -147,10 +150,8 @@ with st.sidebar:
     st.markdown(f"""<div style="background:{'rgba(40,167,69,0.1)' if is_open else 'rgba(220,53,69,0.1)'}; color:{'#28a745' if is_open else '#dc3545'}; padding:12px; border-radius:10px; text-align:center; font-weight:bold; border:1px solid;">{'🟢 نتشرف بكم الآن' if is_open else '🔴 السنتر مغلق'}</div>""", unsafe_allow_html=True)
     st.write("<br>", unsafe_allow_html=True)
     
-    # أزرار الاتصال
     st.markdown(f'<a href="tel:{PHONES[0]}" target="_blank" style="text-decoration:none;"><div style="background:#007bff; color:white; padding:12px; border-radius:10px; text-align:center; margin-bottom:10px; font-weight:bold;">📞 اتصلي بنا</div></a>', unsafe_allow_html=True)
     
-    # زر المشاركة عبر الواتساب
     share_text = "شوفت بيوتي سنتر يارا ثروت وعجبني ادخلي شوفيه انتي كمان من اللينك ده"
     wa_share_url = f"https://wa.me/?text={urllib.parse.quote(share_text)}https://yara-tharwat.streamlit.app/"
     
@@ -165,7 +166,7 @@ with st.sidebar:
     st.markdown(f"""<div style="padding:15px; border:1px solid rgba(212,175,55,0.2); border-radius:10px; background:rgba(255,255,255,0.02); font-size:14px;"><b>📱 أرقامنا:</b><br>{PHONES[0]}<br>{PHONES[1]}<br><hr><b>📍 العنوان:</b><br>{ADDR}</div>""", unsafe_allow_html=True)
 
 # ============================================================
-# 5. الصفحات والمحتوى
+# 5. الصفحات والمحتوى (جهة اليمين)
 # ============================================================
 p = st.query_params.get("p", "home")
 
@@ -193,7 +194,7 @@ elif p == "booking":
     notes = st.text_area("ملاحظات إضافية 📝")
     if st.button("🚀 إرسال الطلب عبر واتساب", use_container_width=True):
         if name and phone:
-            msg = f"✨ حجز جديد ✨\n-----------------------------------------------------\nالاسم: {name}\nالسن: {age}\nالهاتف: {phone}\nالخدمة: {service}\nملاحظات: {notes}"
+            msg = f"✨ حجز جديد ✨\nالاسم: {name}\nالسن: {age}\nالهاتف: {phone}\nالخدمة: {service}\nملاحظات: {notes}"
             st.markdown(f'<meta http-equiv="refresh" content="0; url=https://wa.me/{WA_NUM}?text={urllib.parse.quote(msg)}">', unsafe_allow_html=True)
 
 elif p == "prices":
