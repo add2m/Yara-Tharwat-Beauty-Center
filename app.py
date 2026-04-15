@@ -34,7 +34,7 @@ def handle_reviews(action="read", data=None):
     return reviews
 
 # ============================================================
-# 2. كود الـ CSS (السايدبار يسار + التصميم الملكي + المقص)
+# 2. كود الـ CSS (السايدبار يسار + التصميم الملكي + المقص + زر الإظهار)
 # ============================================================
 st.markdown("""
 <style>
@@ -57,9 +57,24 @@ st.markdown("""
         border-left: none !important;
     }
 
+    /* --- زر إظهار السايدبار (الزرار اللي كان بيختفي) --- */
     [data-testid="stSidebarCollapsedControl"] {
-        left: 20px !important;
+        left: 10px !important;
         right: auto !important;
+        background-color: #D4AF37 !important; /* لون ذهبي واضح */
+        border-radius: 0 10px 10px 0 !important;
+        width: 45px !important;
+        height: 45px !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        z-index: 999999 !important;
+        box-shadow: 2px 0 10px rgba(212, 175, 55, 0.4) !important;
+    }
+    
+    /* جعل لون السهم أسود ليظهر فوق الذهبي */
+    [data-testid="stSidebarCollapsedControl"] svg {
+        fill: #000000 !important;
     }
 
     .stApp {
@@ -126,7 +141,6 @@ PHONES = ["01055901090", "01055907095"]
 ADDR = "الدقهلية - منية النصر - شارع البحر - أمام ستار مول - أعلى يونيكورن - الدور الخامس"
 ADMIN_PWD = "9811"
 
-# روابط فيديوهات جوجل درايف
 VIDS = [
     "1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL", "1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi4hzi",
     "1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0", "1wlMl0Mi7COStjKh1d8B9JxWqj7Cf-fD1",
@@ -138,16 +152,13 @@ VIDS = [
 # ============================================================
 with st.sidebar:
     st.image(LOGO)
-    # حالة السنتر (مفتوح/مغلق)
     now = datetime.utcnow() + timedelta(hours=3)
     is_open = 13 <= now.hour < 22
     st.markdown(f"""<div style="background:{'rgba(40,167,69,0.1)' if is_open else 'rgba(220,53,69,0.1)'}; color:{'#28a745' if is_open else '#dc3545'}; padding:12px; border-radius:10px; text-align:center; font-weight:bold; border:1px solid;">{'🟢 نتشرف بكم الآن' if is_open else '🔴 السنتر مغلق حالياً'}</div>""", unsafe_allow_html=True)
     st.write(" ")
     
-    # أزرار الاتصال
     st.markdown(f'<a href="tel:{PHONES[0]}" target="_blank" class="nav-btn" style="background:#007bff !important; color:white !important; padding:10px; font-size:14px;">📞 اتصلي بنا</a>', unsafe_allow_html=True)
     
-    # زر مشاركة الموقع
     share_text = "اشوفت بيوتي سنتر يارا ثروت وعجبني ادخلي شوفيه انتي كمان من اللينك ده"
     wa_share_url = f"https://wa.me/?text={urllib.parse.quote(share_text)} https://yara-tharwat.streamlit.app/"
     st.markdown(f'<a href="{wa_share_url}" target="_blank" class="nav-btn" style="background:#25D366 !important; color:white !important; padding:10px; font-size:14px;">🟢 مشاركة عبر واتساب</a>', unsafe_allow_html=True)
@@ -182,7 +193,6 @@ elif p == "booking":
             phone = st.text_input("رقم الموبايل 📱")
             service = st.selectbox("الخدمة المطلوبة ✨", ["شعر", "بشرة", "أخرى"])
         
-        # إضافة خانة الملاحظات المطلوبة
         user_notes = st.text_area("ملاحظات 📝")
         
         submit = st.form_submit_button("🚀 إرسال الطلب عبر واتساب", use_container_width=True)
