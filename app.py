@@ -34,7 +34,7 @@ def handle_reviews(action="read", data=None):
     return reviews
 
 # ============================================================
-# 2. كود الـ CSS (السايدبار يسار + التصميم الملكي + المقص)
+# 2. كود الـ CSS (السايدبار يسار + التصميم الملكي + زر القائمة)
 # ============================================================
 st.markdown("""
 <style>
@@ -57,9 +57,16 @@ st.markdown("""
         border-left: none !important;
     }
 
+    /* إظهار زر فتح القائمة الجانبية المخصص */
     [data-testid="stSidebarCollapsedControl"] {
         left: 20px !important;
         right: auto !important;
+        background-color: #D4AF37 !important;
+        border-radius: 50% !important;
+        padding: 5px !important;
+        display: flex !important;
+        visibility: visible !important;
+        z-index: 999999;
     }
 
     .stApp {
@@ -109,7 +116,13 @@ st.markdown("""
         animation: scissors-swing 8s infinite;
     }
 
-    header, footer, #MainMenu { visibility: hidden; }
+    /* إخفاء الهيدر ولكن السماح لزر القائمة بالظهور */
+    header[data-testid="stHeader"] {
+        background: transparent !important;
+        color: #D4AF37 !important;
+    }
+    
+    footer, #MainMenu { visibility: hidden; }
 </style>
 
 <div class="scissors-container">
@@ -169,7 +182,7 @@ if p == "home":
         ("⭐ آراء العملاء 💖", "reviews")
     ]
     for text, target in menu:
-        st.markdown(f'<a href="./?p={target}" target="_blank" class="nav-btn">{text}</a>', unsafe_allow_html=True)
+        st.markdown(f'<a href="./?p={target}" target="_self" class="nav-btn">{text}</a>', unsafe_allow_html=True)
 
 elif p == "booking":
     st.markdown("### 📅 حجز موعد جديد ✨")
