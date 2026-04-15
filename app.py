@@ -34,7 +34,7 @@ def handle_reviews(action="read", data=None):
     return reviews
 
 # ============================================================
-# 2. كود الـ CSS (السايدبار يسار + التصميم الملكي + زر القائمة)
+# 2. كود الـ CSS (زر القائمة المميز + السايدبار + التصميم)
 # ============================================================
 st.markdown("""
 <style>
@@ -57,16 +57,31 @@ st.markdown("""
         border-left: none !important;
     }
 
-    /* إظهار زر فتح القائمة الجانبية المخصص */
+    /* تصميم زر القائمة الجانبية المطور */
+    @keyframes pulse-gold {
+        0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
+    }
+
     [data-testid="stSidebarCollapsedControl"] {
         left: 20px !important;
         right: auto !important;
-        background-color: #D4AF37 !important;
-        border-radius: 50% !important;
-        padding: 5px !important;
+        background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%) !important;
+        border-radius: 12px !important;
+        padding: 8px !important;
         display: flex !important;
         visibility: visible !important;
         z-index: 999999;
+        animation: pulse-gold 2s infinite;
+        border: 1px solid rgba(255,255,255,0.3) !important;
+    }
+    
+    /* تغيير لون أيقونة الأشرطة للأبيض لتظهر بوضوح */
+    [data-testid="stSidebarCollapsedControl"] svg {
+        fill: white !important;
+        width: 25px !important;
+        height: 25px !important;
     }
 
     .stApp {
@@ -116,10 +131,8 @@ st.markdown("""
         animation: scissors-swing 8s infinite;
     }
 
-    /* إخفاء الهيدر ولكن السماح لزر القائمة بالظهور */
     header[data-testid="stHeader"] {
         background: transparent !important;
-        color: #D4AF37 !important;
     }
     
     footer, #MainMenu { visibility: hidden; }
@@ -151,16 +164,15 @@ VIDS = [
 # ============================================================
 with st.sidebar:
     st.image(LOGO)
-    # حالة السنتر (مفتوح/مغلق)
     now = datetime.utcnow() + timedelta(hours=3)
     is_open = 13 <= now.hour < 22
     st.markdown(f"""<div style="background:{'rgba(40,167,69,0.1)' if is_open else 'rgba(220,53,69,0.1)'}; color:{'#28a745' if is_open else '#dc3545'}; padding:12px; border-radius:10px; text-align:center; font-weight:bold; border:1px solid;">{'🟢 نتشرف بكم الآن' if is_open else '🔴 السنتر مغلق حالياً'}</div>""", unsafe_allow_html=True)
     st.write(" ")
     
-    # أزرار الاتصال
+    # أزرار الاتصال تفتح في تاب جديدة
     st.markdown(f'<a href="tel:{PHONES[0]}" target="_blank" class="nav-btn" style="background:#007bff !important; color:white !important; padding:10px; font-size:14px;">📞 اتصلي بنا</a>', unsafe_allow_html=True)
     
-    # زر مشاركة الموقع
+    # زر مشاركة الموقع يفتح في تاب جديدة
     share_text = "شوفت بيوتي سنتر يارا ثروت وعجبني شغله ادخلي شوفيه انتي كمان اللينك ده"
     wa_share_url = f"https://wa.me/?text={urllib.parse.quote(share_text)} https://yara-tharwat.streamlit.app/"
     st.markdown(f'<a href="{wa_share_url}" target="_blank" class="nav-btn" style="background:#25D366 !important; color:white !important; padding:10px; font-size:14px;">🟢 مشاركة عبر واتساب</a>', unsafe_allow_html=True)
@@ -182,7 +194,8 @@ if p == "home":
         ("⭐ آراء العملاء 💖", "reviews")
     ]
     for text, target in menu:
-        st.markdown(f'<a href="./?p={target}" target="_self" class="nav-btn">{text}</a>', unsafe_allow_html=True)
+        # استخدام target="_blank" لفتح الأزرار في نافذة جديدة
+        st.markdown(f'<a href="./?p={target}" target="_blank" class="nav-btn">{text}</a>', unsafe_allow_html=True)
 
 elif p == "booking":
     st.markdown("### 📅 حجز موعد جديد ✨")
@@ -195,14 +208,14 @@ elif p == "booking":
             phone = st.text_input("رقم الموبايل 📱")
             service = st.selectbox("الخدمة المطلوبة ✨", ["شعر", "بشرة", "أخرى"])
         
-        # إضافة خانة الملاحظات المطلوبة
         user_notes = st.text_area("ملاحظات إضافية  📝")
         
         submit = st.form_submit_button("🚀 إرسال الطلب عبر واتساب", use_container_width=True)
         if submit:
             if name and phone:
                 msg = f"✨ حجز جديد ✨\n--------------------------------------------------\n👤 الاسم: {name}\n🎂 السن: {age}\n📱 الهاتف: {phone}\n💄 الخدمة: {service}\n📝 ملاحظات: {user_notes}"
-                st.markdown(f'<meta http-equiv="refresh" content="0; url=https://wa.me/{WA_NUM}?text={urllib.parse.quote(msg)}">', unsafe_allow_html=True)
+                # الحجز يفتح واتساب في تاب جديد
+                st.markdown(f'<script>window.open("https://wa.me/{WA_NUM}?text={urllib.parse.quote(msg)}", "_blank").focus();</script>', unsafe_allow_html=True)
             else:
                 st.error("يرجى ملء الاسم ورقم الهاتف على الاقل")
 
