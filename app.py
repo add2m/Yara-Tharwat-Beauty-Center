@@ -148,7 +148,7 @@ with st.sidebar:
     st.markdown(f'<a href="tel:{PHONES[0]}" target="_blank" class="nav-btn" style="background:#007bff !important; color:white !important; padding:10px; font-size:14px;">📞 اتصلي بنا</a>', unsafe_allow_html=True)
     
     # زر مشاركة الموقع
-    share_text = "اكتشفي الجمال في بيوتي سنتر يارا ثروت ✨"
+    share_text = "اشوفت بيوتي سنتر يارا ثروت وعجبني ادخلي شوفيه انتي كمان من اللينك ده"
     wa_share_url = f"https://wa.me/?text={urllib.parse.quote(share_text)} https://yara-tharwat.streamlit.app/"
     st.markdown(f'<a href="{wa_share_url}" target="_blank" class="nav-btn" style="background:#25D366 !important; color:white !important; padding:10px; font-size:14px;">🟢 مشاركة عبر واتساب</a>', unsafe_allow_html=True)
 
@@ -180,34 +180,34 @@ elif p == "booking":
             age = st.text_input("السن 🎂")
         with col2:
             phone = st.text_input("رقم الموبايل 📱")
-            service = st.selectbox("الخدمة المطلوبة ✨", ["شعر", "بشرة", "حمام مغربي", "تجهيز عرائس", "أخرى"])
+            service = st.selectbox("الخدمة المطلوبة ✨", ["شعر", "بشرة", "أخرى"])
         
         # إضافة خانة الملاحظات المطلوبة
-        user_notes = st.text_area("ملاحظات إضافية (أو أي شيء تودين إضافته) 📝")
+        user_notes = st.text_area("ملاحظات 📝")
         
         submit = st.form_submit_button("🚀 إرسال الطلب عبر واتساب", use_container_width=True)
         if submit:
             if name and phone:
-                msg = f"✨ حجز جديد ✨\n👤 الاسم: {name}\n🎂 السن: {age}\n📱 الهاتف: {phone}\n💄 الخدمة: {service}\n📝 ملاحظات: {user_notes}"
+                msg = f"✨ حجز جديد ✨\n-----------------------------------------------------\n👤 الاسم: {name}\n🎂 السن: {age}\n📱 الهاتف: {phone}\n💄 الخدمة: {service}\n📝 ملاحظات: {user_notes}"
                 st.markdown(f'<meta http-equiv="refresh" content="0; url=https://wa.me/{WA_NUM}?text={urllib.parse.quote(msg)}">', unsafe_allow_html=True)
             else:
-                st.error("يرجى ملء الاسم ورقم الهاتف")
+                st.error("يرجى ملء الاسم ورقم الهاتف على الاقل")
 
 elif p == "gallery":
-    st.markdown("### 🎥 معرض أعمالنا 🎬")
+    st.markdown("### 🎥 صور لشغلنا 🎬")
     for v_id in VIDS:
         st.markdown(f'<iframe src="https://drive.google.com/file/d/{v_id}/preview" width="100%" height="450"></iframe>', unsafe_allow_html=True)
         st.write("---")
 
 elif p == "prices":
     st.markdown("### 💰 قائمة الأسعار والعروض 💸")
-    st.info("سيتم تحديث قائمة الأسعار بأحدث العروض قريباً جداً.. انتظرونا! 🔥")
+    st.info("سيتم عرض الاسعار هنا قريبا....")
 
 elif p == "reviews":
-    st.markdown("### ⭐ آراء الجميلات 💖")
-    with st.expander("✨ اتركي بصمتك.. أضيفي رأيك هنا"):
+    st.markdown("### ⭐ آراء العملاء 💖")
+    with st.expander("✨ ضيفي رأيك هنا"):
         with st.form("add_rev"):
-            r_n = st.text_input("الاسم المستعار")
+            r_n = st.text_input("الاسم ")
             r_t = st.text_area("رأيك في خدماتنا")
             if st.form_submit_button("نشر الرأي"):
                 if r_n and r_t:
