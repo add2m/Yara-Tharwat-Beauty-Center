@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ بيوتي سنتر يارة ثروت ✨</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="scissors-container">
+        <svg viewBox="0 0 512 512"><path d="M490.5 35.8c-18.7-18.7-49.1-18.7-67.9 0L256 202.5 89.4 35.8c-18.7-18.7-49.1-18.7-67.9 0-18.7 18.7-18.7 49.1 0 67.9L188.2 270.3l-142.1 142c-29.4 29.4-29.4 77 0 106.4 29.4 29.4 77 29.4 106.4 0l103.5-103.5 103.5 103.5c29.4 29.4 77 29.4 106.4 0 29.4-29.4 29.4-77 0-106.4l-142.1-142 166.7-166.6c18.7-18.8 18.7-49.2 0-67.9z"/></svg>
+    </div>
+
+    <aside class="sidebar" id="sidebar">
+        <img src="https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png" alt="اللوجو" class="logo">
+        
+        <div id="status-badge" class="status-badge">جاري التحقق...</div>
+        
+        <a href="tel:01055901090" class="nav-btn call-btn">📞 اتصلي بنا</a>
+        <a href="#" id="share-wa" target="_blank" class="nav-btn share-btn">🟢 مشاركة عبر واتساب</a>
+        
+        <div class="info-box">
+            <b>📍 العنوان:</b><br>
+            الدقهلية - منية النصر - شارع البحر - أمام ستار مول - أعلى يونيكورن - الدور الخامس
+            <hr>
+            <b>📱 موبايل:</b><br>
+            01055901090<br>
+            01055907095
+        </div>
+    </aside>
+
+    <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+
+    <main class="main-content">
+        <center><img src="https://i.postimg.cc/43LvfZ27/Screenshot-2026-04-11-005540.png" alt="اللوجو" class="main-logo"></center>
+        
+        <section id="home-page" class="page-section active">
+            <h2 class="main-title">✨ بيوتي سنتر يارة ثروت ✨</h2>
+            <div class="menu-container">
+                <a href="./index.html?p=booking" target="_blank" class="nav-link-btn">📅 للحجز والاستفسار ✨💄</a>
+                <a href="./index.html?p=prices" target="_blank" class="nav-link-btn">💰 قائمة الأسعار والعروض 💸</a>
+                <a href="./index.html?p=gallery" target="_blank" class="nav-link-btn">🎥 صور لشغلنا 🎬</a>
+                <a href="./index.html?p=reviews" target="_blank" class="nav-link-btn">⭐ آراء العملاء 💖</a>
+            </div>
+        </section>
+
+        <section id="booking-page" class="page-section">
+            <button onclick="navigateTo('home-page')" class="back-btn">⬅️ عودة للرئيسية</button>
+            <h3>📅 حجز موعد جديد ✨</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>الاسم 👤</label>
+                    <input type="text" id="b_name" placeholder="اكتبي اسمك">
+                </div>
+                <div class="form-group">
+                    <label>السن 🎂</label>
+                    <input type="text" id="b_age" placeholder="السن">
+                </div>
+                <div class="form-group">
+                    <label>رقم الموبايل 📱</label>
+                    <input type="text" id="b_phone" placeholder="رقم الهاتف">
+                </div>
+                <div class="form-group">
+                    <label>الخدمة المطلوبة ✨</label>
+                    <select id="b_service">
+                        <option value="شعر">شعر</option>
+                        <option value="بشرة">بشرة</option>
+                        <option value="أخرى">أخرى</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>ملاحظات إضافية 📝</label>
+                <textarea id="b_notes" rows="3" placeholder="أي تفاصيل حابة تضيفيها..."></textarea>
+            </div>
+            <button onclick="sendBooking()" class="nav-btn action-btn">🚀 إرسال الطلب عبر واتساب</button>
+        </section>
+
+        <section id="gallery-page" class="page-section">
+            <button onclick="navigateTo('home-page')" class="back-btn">⬅️ عودة للرئيسية</button>
+            <h3>🎥 معرض أعمالنا 🎬</h3>
+            <div class="video-container">
+                <iframe src="https://drive.google.com/file/d/1eC2Vhnj9ON69lKyMPWtrXENQiDA8QnBL/preview" width="100%" height="450" allow="autoplay"></iframe>
+                <iframe src="https://drive.google.com/file/d/1w1PWV3eQaXAz1Cdz5WBJrtX3lDSi4hzi/preview" width="100%" height="450"></iframe>
+                <iframe src="https://drive.google.com/file/d/1SuxPy8-LsRE4iizxcR531sTXPeZdY-n0/preview" width="100%" height="450"></iframe>
+                <iframe src="https://drive.google.com/file/d/1wlMl0Mi7COStjKh1d8B9JxWqj7Cf-fD1/preview" width="100%" height="450"></iframe>
+                <iframe src="https://drive.google.com/file/d/1mGeV2CQrYyJCwZkSGBrB2rhMqta8BlOU/preview" width="100%" height="450"></iframe>
+            </div>
+        </section>
+
+        <section id="prices-page" class="page-section">
+            <button onclick="navigateTo('home-page')" class="back-btn">⬅️ عودة للرئيسية</button>
+            <h3>💰 قائمة الأسعار والعروض 💸</h3>
+            <div class="info-alert">📌 سيتم عرض الأسعار هنا قريباً......</div>
+        </section>
+
+        <section id="reviews-page" class="page-section">
+            <button onclick="navigateTo('home-page')" class="back-btn">⬅️ عودة للرئيسية</button>
+            <h3>⭐ آراء العملاء 💖</h3>
+            
+            <div class="add-review-box">
+                <h4>✨ أضيفي رأيك هنا</h4>
+                <input type="text" id="rev_name" placeholder="الاسم">
+                <textarea id="rev_text" rows="2" placeholder="رأيك في خدماتنا"></textarea>
+                <button onclick="addReview()" class="nav-btn" style="background:#D4AF37; color:#000; padding:10px;">نشر الرأي</button>
+            </div>
+
+            <div id="reviews-list">
+                <div class="review-card">"شغل ممتاز وتجربة رائعة!"<br><small style="color:#D4AF37;">— سارة أحمد</small></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
